@@ -9,5 +9,5 @@ to the page at http://cgwozdecky.github.io/TieredLogicPrograms/
 Let's get this thing done and working well!
 ditto!
 
-Chris, Matthew, Thomas, Ron
+Chris, Matthew, Thomas, Ron,
 zhilong
