@@ -7,5 +7,6 @@ This is where we are going to work on the website for our client this semester! 
 to the page at http://cgwozdecky.github.io/TieredLogicPrograms/
 
 Let's get this thing done and working well!
+ditto!
 
-Chris
+Chris, Matthew
