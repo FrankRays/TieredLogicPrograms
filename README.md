@@ -10,5 +10,4 @@ Let's get this thing done and working well!
 ditto!
 
 Chris, Matthew, Thomas, Ron,
-zhilong
-Richard
+zhilong, Richard Owusu-Achaw
