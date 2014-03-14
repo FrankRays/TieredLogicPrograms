@@ -1,0 +1,228 @@
+rem---- 20140313 work on Project of cst8334 
+
+
+rem ========= following all created tables with constraints and some data for T3MCE modules =========
+
+rem Firstly clear orderly all previous tables in which for T3MCE modules with constraints and its records
+rem note that in terms of sequence because of certain esisting constraints among these tables.
+rem each tables and data needs 3 steps to be created as below:
+rem step 1: create primary tables 
+rem step 2: insert some relevant data to its tables
+rem step 3: check tables and data with matching mutual constraint in rows
+
+
+rem ---- clean table with cascade constraints in the order
+drop table student CASCADE constraints;
+drop table supervisor CASCADE constraints;
+drop table course CASCADE constraints;
+drop table ssubitem_T3MCE CASCADE constraints;
+drop table subitem_T3MCE CASCADE constraints;
+drop table themodule_T3MCE CASCADE constraints;
+drop table modules_T3MCE CASCADE constraints;
+drop table test_T3MCE CASCADE constraints;
+
+
+rem step 2: ---- create each primary tables 
+rem ---- create table student_T3MCE 
+Create table student (
+student_id char(9),
+student_number char(9),
+student_name varchar(50),
+student_email varchar(50),
+constraint student_pk primary key (student_id));
+
+rem step 3: ---- insert into 7 rows of data
+insert into student values('std000001','sn0000001','Christopher Gwozdecky','gwo000001@algonquinlive.com');
+insert into student values('std000002','sn0000002','Matthew Toderian','tod000001@algonquinlive.com');
+insert into student values('std000003','sn0000003','Thomas Milks','mil000001@algonquinlive.com');
+insert into student values('std000004','sn0000004','Ron Trnka','trn000001@algonquinlive.com');
+insert into student values('std000005','sn0000005','Zhilong Wu','wu0000001@algonquinlive.com');
+insert into student values('std000006','sn0000006','Richard Owusuachaw','owu000001@algonquinlive.com');
+insert into student values('std000007','sn0000007','Desen Guo','guo000001@algonquinlive.com');
+
+rem step 4: ---- check table student
+select * from student;
+
+
+rem ===== The same steps to create others tables and data =======
+
+rem ---- create table supervisor_T3MCE
+Create table supervisor (
+supervisor_id char(9),
+supervisor_number char(9),
+supervisor_name varchar(50),
+supervisor_email varchar(50),
+constraint supervisor_pk primary key (supervisor_id));
+
+rem ---- insert into 3 rows of data
+insert into supervisor values('stf000001','pf0000001','Patricia Murphy','mur000001@algonquincollege.com');
+insert into supervisor values('stf000002','pf0000002','Stanley Pieda','pie000002@algonquincollege.com');
+insert into supervisor values('stf000003','pf0000003','Todd Kelley','kel000003@algonquincollege.com');
+
+rem ---- check table supervisor
+select * from supervisor;
+
+
+
+rem ---- create table course_T3MCE
+Create table course (
+course_id char(9),
+course_number char(7),
+course_name varchar(100),
+constraint course_pk primary key (course_id));
+
+rem ---- insert 2 rows data
+insert into course values('course001','CST8334','software development project');
+insert into course values('course002','CST8276','database advanced topics');
+
+rem ---- check table course
+select * from course;
+
+
+
+rem ---- create table modules_T3MCE
+Create table modules_T3MCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+module_context varchar(150),
+constraint T3MCE_modules_pk primary key (student_id,finished_date,module_id));
+
+rem ---- insert into 7 rows data
+insert into modules_T3MCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','Safety (Module 1)');
+insert into modules_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','Safety (Module 1)');
+insert into modules_T3MCE values('std000003',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','Safety (Module 1)');
+insert into modules_T3MCE values('std000004',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','Professional Conduct/Patient Communication (Module 2)');
+insert into modules_T3MCE values('std000005',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','Professional Conduct/Patient Communication (Module 2)');
+insert into modules_T3MCE values('std000006',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','Professional Conduct/Patient Communication (Module 2)');
+insert into modules_T3MCE values('std000007',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','Professional Conduct/Patient Communication (Module 2)');
+
+rem ---- check table modules_T3MCE
+select * from modules_T3MCE;
+
+
+
+rem ---- create table themodule_T3MCE
+Create table themodule_T3MCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+item_id char(9),
+item_context varchar(150),
+item_code varchar(50),
+item_subitems number(2),
+item_comments varchar(200),
+student_name varchar(50),
+supervisor_name varchar(50),
+constraint T3MCE_themodule_pk primary key (student_id,finished_date,module_id,item_id),
+constraint T3MCE_themodule_modules_fk foreign key (student_id,finished_date,module_id) references modules_T3MCE(student_id,finished_date,module_id));
+
+rem ---- insert into items(item00001-4) of mdle00001 known as Safety (Module 1)
+insert into themodule_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','Demonstrate Hygiene & Universal Precautions','(1.2g & 3.1c):',3,'Supervised Level',NULL,NULL);
+insert into themodule_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','Demonstrate Draping/Pillowing & Positioning','(3.1f,g):',4,'Supervised Level',NULL,NULL);
+insert into themodule_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00003','Demonstrate Safe & Comfortable Treatment Environment','(3.1b):',3,'Assisted Level',NULL,NULL);
+insert into themodule_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00004','Demonstrate Professional Boundaries In Relationship With Patient','(1.3b):',3,'Assisted Level',NULL,NULL);
+
+rem ---- insert into items(item00001-3) of mdle00002 known as Professional Conduct/Patient Communication (Module 2)
+insert into themodule_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00001','Demonstrate Positive Regard','(1.3a):',4,'Assisted Level',NULL,NULL);
+insert into themodule_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','Demonstrate Active Listening Skills','(1.1g):',3,'Assisted Level',NULL,NULL);
+insert into themodule_T3MCE values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00003','Demonstrate Effective Oral Communication/Interviewing Skills','(1.1b):',4,'Assisted Level',NULL,NULL);
+
+rem ---- check table themodule_T3MCE
+select * from themodule_T3MCE;
+
+
+
+rem ---- create table subitem_T3MCE
+Create table subitem_T3MCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+item_id char(9),
+sitem_id char(9),
+sitem_context varchar(150),
+sitem_subitems number(2),
+sitem_grade varchar(20),
+constraint T3MCE_sitem_pk primary key (student_id,finished_date,module_id,item_id,sitem_id),
+constraint T3MCE_subitem_themodule_fk foreign key (student_id,finished_date,module_id,item_id) references themodule_T3MCE(student_id,finished_date,module_id,item_id));
+
+rem ---- insert into sitems(sitem0001-3) of item00001 of mdle00001 known as Safety (Module 1)
+insert into subitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0001','Demonstrate standard hygiene practices*',1,NULL);
+insert into subitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0002','Maintain grooming, dress and hygiene appropriate to the practice setting*',1,NULL);
+insert into subitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0003','Apply standard precautions for infection control*',1,NULL);
+
+rem ---- insert into sitems(sitem0001-4) of item00001 of mdle00002 known as Professional Conduct/Patient Communication (Module 2)
+insert into subitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0001','Drape patient appropriately for treatment',3,NULL);
+insert into subitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0002','Select appropriate positioning*',0,'Excellent');
+insert into subitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0003','Direct and position patient*',0,'Good');
+insert into subitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0004','Modify position according to patient response*',3,NULL);
+
+rem ---- check table subitem_T3MCE
+select * from subitem_T3MCE;
+
+
+
+rem ---- create table ssubitem_T3MCE
+Create table ssubitem_T3MCE(
+student_id char(9),
+finished_date date,
+module_id,
+item_id,
+sitem_id char(9),
+ssitem_id char(9),
+ssitem_context varchar(150), 
+ssitem_subitems number(2),
+ssitem_grade varchar(20),
+constraint T3MCE_ssitem_pk primary key (student_id,finished_date,module_id,item_id,sitem_id,ssitem_id),
+constraint T3MCE_ssubitem_subitem_fk foreign key (student_id,finished_date,module_id,item_id,sitem_id) references subitem_T3MCE(student_id,finished_date,module_id,item_id,sitem_id));
+
+rem ---- insert into ssitems(ssitem001-3) of each sitem0001-3 of item00001 of mdle00001 known as Safety (Module 1)
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0001','ssitem001','Washing hands etc.',0,'Good');
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0002','ssitem001','Uniform, shoes, nametag etc.',0,'Satisfactory');
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0003','ssitem001','Washing table, faceplate, clean sheets etc.',0,'Satisfactory');
+
+rem ---- insert into ssitems(ssitem001-3) of sitem0001 of item00002 of mdle00001 known as Safety (Module 1)
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0001','ssitem001','Pillowing and/or bolstering appropriately for the presenting condition',0,'Excellent');
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0001','ssitem002','Insures that the draping is secured*',0,'Excellent');
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0001','ssitem003','The draping is rearranged for his/her comfort*',0,'Excellent');
+
+rem ---- insert into ssitems(ssitem001-3) of sitem0004 of item00002 of mdle00001 known as Safety (Module 1)  
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0004','ssitem001','Insure that female breasts are not exposed except when being treated in accordance with',0,'Good');
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0004','ssitem002','The patient''s genitalia or gluteal cleft are not exposed',0,'Good');
+insert into ssubitem_T3MCE  values('std000002',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0004','ssitem003','Rational for draping, pillowing and/or bolstering appropriately for the presenting condition',0,'Satisfactory');
+
+rem ---- check table ssubitem_T3MCE
+select * from ssubitem_T3MCE;
+
+
+
+rem ---- this is an associated entity that links with 4 entities of student, supervisor, course and  modules_T3MCE
+Create table test_T3MCE (
+student_id char(9),
+supervisor_id char(9),
+finished_date date,
+course_id char(9),
+module_id char(9),
+constraint T3MCE_test_pk primary key (student_id,supervisor_id,finished_date,course_id,module_id),
+constraint T3MCE_test_student_fk foreign key (student_id) references student(student_id),
+constraint T3MCE_test_supervisor_fk foreign key (supervisor_id) references supervisor(supervisor_id),
+constraint T3MCE_test_course_fk foreign key (course_id) references course(course_id),
+constraint T3MCE_test_modules_fk foreign key (student_id,finished_date,module_id) references modules_T3MCE(student_id,finished_date,module_id));
+
+rem ---- insert into 8 rows of data
+insert into test_T3MCE values('std000001','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00001');
+insert into test_T3MCE values('std000001','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course002','mdle00001');
+insert into test_T3MCE values('std000002','stf000002',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_T3MCE values('std000003','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course002','mdle00001');
+insert into test_T3MCE values('std000004','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course002','mdle00002');
+insert into test_T3MCE values('std000005','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_T3MCE values('std000005','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_T3MCE values('std000006','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_T3MCE values('std000007','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+
+
+rem ---- check table test_T3MCE
+select * from test_T3MCE;
+
+
+rem =================== end of  all tables and some data for T3MCE modules ==================================
