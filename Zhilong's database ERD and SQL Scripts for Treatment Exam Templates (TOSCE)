@@ -1,0 +1,258 @@
+rem---- 20140314 work on Project of cst8334 
+
+
+rem ========= following all created tables with constraints and some data for TOSCE modules =========
+
+rem Firstly clear orderly all previous tables in which for TOSCE modules with constraints and its records
+rem note that in terms of sequence because of certain esisting constraints among these tables.
+rem each tables and data needs 3 steps to be created as below:
+rem step 1: create primary tables 
+rem step 2: insert some relevant data to its tables
+rem step 3: check tables and data with matching mutual constraint in rows
+
+
+rem ---- clean table with cascade constraints in the order
+drop table student CASCADE constraints;
+drop table supervisor CASCADE constraints;
+drop table course CASCADE constraints;
+drop table ssubitem_TOSCE CASCADE constraints;
+drop table subitem_TOSCE CASCADE constraints;
+drop table themodule_TOSCE CASCADE constraints;
+drop table modules_TOSCE CASCADE constraints;
+drop table test_TOSCE CASCADE constraints;
+
+
+rem step 2: ---- create each primary tables 
+rem ---- create table student_TOSCE 
+Create table student (
+student_id char(9),
+student_number char(9),
+student_name varchar(50),
+student_email varchar(50),
+constraint student_pk primary key (student_id));
+
+rem step 3: ---- insert into 7 rows of data
+insert into student_TOSCE values('std000001','sn0000001','Christopher Gwozdecky','gwo000001@algonquinlive.com');
+insert into student_TOSCE values('std000002','sn0000002','Matthew Toderian','tod000001@algonquinlive.com');
+insert into student_TOSCE values('std000003','sn0000003','Thomas Milks','mil000001@algonquinlive.com');
+insert into student_TOSCE values('std000004','sn0000004','Ron Trnka','trn000001@algonquinlive.com');
+insert into student_TOSCE values('std000005','sn0000005','Zhilong Wu','wu0000001@algonquinlive.com');
+insert into student_TOSCE values('std000006','sn0000006','Richard Owusuachaw','owu000001@algonquinlive.com');
+insert into student_TOSCE values('std000007','sn0000007','Desen Guo','guo000001@algonquinlive.com');
+
+rem step 4: ---- check table student
+select * from student_TOSCE;
+
+
+rem ===== The same steps to create others tables and data =======
+
+rem ---- create table supervisor_TOSCE
+Create table supervisor (
+supervisor_id char(9),
+supervisor_number char(9),
+supervisor_name varchar(50),
+supervisor_email varchar(50),
+constraint supervisor_pk primary key (supervisor_id));
+
+rem ---- insert into 3 rows of data
+insert into supervisor values('stf000001','pf0000001','Patricia Murphy','mur000001@algonquincollege.com');
+insert into supervisor values('stf000002','pf0000002','Stanley Pieda','pie000002@algonquincollege.com');
+insert into supervisor values('stf000003','pf0000003','Todd Kelley','kel000003@algonquincollege.com');
+
+rem ---- check table supervisor
+select * from supervisor_TOSCE;
+
+
+
+rem ---- create table course_TOSCE
+Create table course (
+course_id char(9),
+course_number char(7),
+course_name varchar(100),
+constraint course_pk primary key (course_id));
+
+rem ---- insert 2 rows data
+insert into course_TOSCE values('course001','CST8334','software development project');
+insert into course_TOSCE values('course002','CST8276','database advanced topics');
+
+rem ---- check table course
+select * from course_TOSCE;
+
+
+
+rem ---- create table modules_TOSCE
+Create table modules_TOSCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+module_context varchar(200),
+constraint TOSCE_modules_pk primary key (student_id,finished_date,module_id));
+
+rem ---- insert into 7 rows data
+insert into modules_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','Resisted Remedial Exercises');
+insert into modules_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','Sustained & Autogenic/Reciprocal Stretching Techniques');
+insert into modules_TOSCE values('std000003',to_date(sysdate,'DD-MONTH-YY'),'mdle00003','Low Grade Joint Mobilization I & II Sustained and Low Grade I & II Oscillations');
+insert into modules_TOSCE values('std000004',to_date(sysdate,'DD-MONTH-YY'),'mdle00004','Myofascial Trigger Points');
+insert into modules_TOSCE values('std000005',to_date(sysdate,'DD-MONTH-YY'),'mdle00005','High Grade Joint Mobilization Sustained Grade III and/or High Grade Oscillations III & IV');
+insert into modules_TOSCE values('std000006',to_date(sysdate,'DD-MONTH-YY'),'mdle00006','Connective Tissue Technique (Friction)');
+insert into modules_TOSCE values('std000007',to_date(sysdate,'DD-MONTH-YY'),'mdle00007','Fluid Technique Specific Lymph Drainage');
+insert into modules_TOSCE values('std000007',to_date(sysdate,'DD-MONTH-YY'),'mdle00008','Connective Tissue Technique');
+insert into modules_TOSCE values('std000007',to_date(sysdate,'DD-MONTH-YY'),'mdle00009','O & I / GTO Techniques');
+insert into modules_TOSCE values('std000007',to_date(sysdate,'DD-MONTH-YY'),'mdle00010','Vibrations');
+insert into modules_TOSCE values('std000007',to_date(sysdate,'DD-MONTH-YY'),'mdle00011','Draping/Pillowing');
+
+rem ---- check table modules_TOSCE
+select * from modules_TOSCE;
+
+
+
+rem ---- create table themodule_TOSCE
+Create table themodule_TOSCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+item_id char(9),
+item_context varchar(150),
+item_code varchar(50),
+item_subitems number(2),
+constraint TOSCE_themodule_pk primary key (student_id,finished_date,module_id,item_id),
+constraint TOSCE_themodule_modules_fk foreign key (student_id,finished_date,module_id) references modules_TOSCE(student_id,finished_date,module_id));
+
+rem ---- insert into items(item00001-3) of mdle00001 known as Communication
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','Communication','(Cognitive):',6);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','Biomechanics, & Coordination',NULL,1);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00003','Technical & Safety','(Cognitive/Psychomotor):',4);
+
+rem ---- insert into items(item00001-3) of mdle00002 known as Sustained & Autogenic/Reciprocal Stretching Techniques
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00001','Communication','(Cognitive):',5);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','Tissue Challenge, Biomechanics, & Coordination','(Psychomotor):',3);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00003','Technical & Safety','(Cognitive/Psychomotor):',4);
+
+
+rem ---- insert into items(item00001-3) of mdle00003 known as Low Grade Joint Mobilization I & II Sustained and Low Grade I & II Oscillations
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00003','item00001','Communication','(Cognitive):',5);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00003','item00002','Tissue Challenge, Biomechanics, & Coordination','(Psychomotor):',4);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00003','item00003','Technical & Safety','(Cognitive/Psychomotor):',6);
+
+rem ---- insert into items(item00001-3) of mdle00004 known as High Grade Joint Mobilization Sustained Grade III and/or High Grade Oscillations III & IV
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00004','item00001','Communication','(Cognitive):',5);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00004','item00002','Tissue Challenge, Biomechanics, & Coordination','(Psychomotor):',4);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00004','item00003','Technical & Safety','(Cognitive/Psychomotor):',16);
+
+rem ---- insert into items(item00001-3) of mdle00005 known as Connective Tissue Technique (Friction)
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00005','item00001','Communication','(Cognitive):',3);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00005','item00002','Tissue Challenge, Biomechanics, & Coordination','(Psychomotor):',6);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00005','item00003','Technical & Safety','(Cognitive/Psychomotor):',4);
+
+rem ---- insert into items(item00001-3) of mdle00006 known as Fluid Technique Specific Lymph Drainage
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00006','item00001','Communication','(Cognitive):',2);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00006','item00002','Tissue Challenge'', Biomechanics'', & Coordination','(Psychomotor):',3);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00006','item00003','Technical & Safety','(Cognitive/Psychomotor):',2);
+
+rem ---- insert into items(item00001-3) of mdle00007 known as Connective Tissue Technique
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00007','item00001','Communication','(Cognitive):',5);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00007','item00002','Tissue Challenge, Biomechanics, & Coordination','(Psychomotor):',4);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00007','item00003','Technical & Safety','(Cognitive/Psychomotor):',4);
+
+rem ---- insert into items(item00001-3) of mdle00008 known as O & I / GTO Techniques
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00008','item00001','Communication','(Cognitive):',4);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00008','item00002','Tissue Challenge'', Biomechanics'', & Coordination','(Psychomotor):',3);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00008','item00003','Technical & Safety','(Cognitive/Psychomotor):',1);
+
+rem ---- insert into items(item00001-3) of mdle00009 known as Vibrations
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00009','item00001','Communication','(Cognitive):',2);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00009','item00002','Tissue Challenge, Biomechanics, & Coordination','(Psychomotor):',5);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00009','item00003','Technical & Safety','(Cognitive/Psychomotor):',2);
+
+rem ---- insert into items(item00001-2) of mdle00010 known as Draping/Pillowing
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00010','item00001','Communication:',NULL,2);
+insert into themodule_TOSCE values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00010','item00002','Technical & Safety','(Cognitive/Psychomotor):',6);
+
+rem ---- check table themodule_TOSCE
+select * from themodule_TOSCE;
+
+
+rem ---- create table subitem_TOSCE
+Create table subitem_TOSCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+item_id char(9),
+sitem_id char(9),
+sitem_context varchar(150),
+sitem_grade varchar(20),
+constraint TOSCE_sitem_pk primary key (student_id,finished_date,module_id,item_id,sitem_id),
+constraint TOSCE_subitem_themodule_fk foreign key (student_id,finished_date,module_id,item_id) references themodule_TOSCE(student_id,finished_date,module_id,item_id));
+
+
+rem ---- sitems of themodule 1 data
+rem ---- insert into sitems(sitem0001-6) of item00001 of mdle00001 
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0001','in layman’s terms, explains to the client the procedure of applying resisted exercises','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0002','significant impairment','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0003','two significant outcomes','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0004','questions and responds (check in) correctly and clearly','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0005','benefits and possible negative reactions to the exercises and','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00001','sitem0006','confirms with the client that they can stop if there is a strong negative reaction','E');
+
+rem ---- insert into sitems(sitem0001) of item00002 of mdle00001 
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00002','sitem0001','therapist demonstrates with clarity and good biomechanical form','E');
+
+rem ---- insert into sitems(sitem0001-4) of item00003 of mdle00001 
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00003','sitem0001','sets, reps, holding and rest periods, number of times per day and per week','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00003','sitem0002','correct or suitable resisted exercise for the presenting condition','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00003','sitem0003','witnesses that the client can perform the exercise','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00001','item00003','sitem0004','was the student safe with the procedure Yes___  No ___ ','Y');
+
+rem ---- sitems of themodule 2 data 
+rem ---- insert into sitems(sitem0001-5) of item00001 of mdle00002 
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0001','indications & goals for the uses of autogenic & reciprocal inhibition stretching techniques','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0002','in layman’s terms, clearly and accurately explains the procedure to client','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0003','check in with the client','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0004','don’t let me move you or meet my resistance','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0005','confirms with the client that the soft tissue is lengthened within the client's pain tolerance','E');
+
+rem ---- insert into sitems(sitem0001-3) of item00002  of mdle00002 
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0001','uses stable hand and biomechanics','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0002','stretches the appropriate target muscle for at least 30 sec''’s and verifies with the client that the stretch is comfortable before the technique','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00002','sitem0003','accurately positions the body part into a less stretched position to facilitate an isometric or concentric muscle contraction stretches appropriate target muscle for 30 sec’s at the end of the technique','E');
+
+rem ---- insert into sitems(sitem0001-3) of item00003 of mdle00002 
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00003','sitem0001','repeats the process 3x for 6 to 8 sec (contract for 6 to 8 sec’s relax 2 seconds repeat 3x times)','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00003','sitem0002','confirms client’s comfort throughout stretching technique','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00003','sitem0003','held without bouncing until there is a release in the tissue being stretched','E');
+insert into subitem_TOSCE  values('std000001',to_date(sysdate,'DD-MONTH-YY'),'mdle00002','item00003','sitem0004','was the student safe with the procedure Yes___ No___','E');
+rem ---- check table subitem_TOSCE
+
+
+
+
+rem ---- this is an associated entity that links with 4 entities of student, supervisor, course and  modules_TOSCE
+Create table test_TOSCE (
+student_id char(9),
+supervisor_id char(9),
+finished_date date,
+course_id char(9),
+module_id char(9),
+constraint TOSCE_test_pk primary key (student_id,supervisor_id,finished_date,course_id,module_id),
+constraint TOSCE_test_student_fk foreign key (student_id) references student(student_id),
+constraint TOSCE_test_supervisor_fk foreign key (supervisor_id) references supervisor(supervisor_id),
+constraint TOSCE_test_course_fk foreign key (course_id) references course(course_id),
+constraint TOSCE_test_modules_fk foreign key (student_id,finished_date,module_id) references modules_TOSCE(student_id,finished_date,module_id));
+
+rem ---- insert into 8 rows of data
+insert into test_TOSCE values('std000001','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00001');
+insert into test_TOSCE values('std000001','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course002','mdle00001');
+insert into test_TOSCE values('std000001','stf000002',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_TOSCE values('std000003','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course002','mdle00001');
+insert into test_TOSCE values('std000004','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course002','mdle00002');
+insert into test_TOSCE values('std000005','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_TOSCE values('std000005','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_TOSCE values('std000006','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+insert into test_TOSCE values('std000007','stf000001',to_date(sysdate,'DD-MONTH-YY'),'course001','mdle00002');
+
+
+rem ---- check table test_TOSCE
+select * from test_TOSCE;
+
+
+rem =================== end of  all tables and some data for TOSCE modules ==================================
