@@ -1,0 +1,210 @@
+-- rem Understanding of client documentations in Term III Massage Clinic Evaluation Term 3 modules -(named T3MCE here) and
+-- rem Mss  NEW 3030 & 3040 Treatment OSCE  2013, and others,
+-- rem Analysis, Modeling those modules to meet client's requirements
+-- rem Created ERD (attached figure 1 made by Oracle sql developer), mapping to tables and retrieve data from client's modules as sample to insert data
+-- rem For effectively, put them into oracle oracle 11g express to run locally for sure wheather or not matching business logic of clients modules 
+-- rem the result is probably right recently
+-- rem in order to every teammates can access database, an online hosting database is necessary for our team, applied a free hosting database account
+-- rem from hphMyAdmin that provides a mysql database by own adminstration without license fee as a foundation of web development inside of our team project 
+-- rem Converted oracle sql scripts to mySql scripts and then load them into phpMyAdmin hosting database to each team members through this <connection string> 
+-- rem Here is an example that is given C# web application to explain how to connect with this hosting database
+-- rem For other web apps to connect hosting database are similiar to it's pattern, Otherwise, for more details, should read other relevant reference
+-- rem 
+-- rem  Solution 1 for Coding:
+-- rem  server = "sql2.freemysqlhosting.net";
+-- rem  database = "sql233342";
+-- rem  uid = "sql233342";
+-- rem  password = "aT8!vX3*";
+-- rem 
+-- rem  string connectionString;
+-- rem  connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+-- rem  connection = new MySqlConnection(connectionString);
+
+-- rem Solution 2 for managering the hosting database sql233342:
+-- rem can directly login to the website of phpMyAdmin database hosting
+-- rem open Chrom browser, type this in the website address: http://www.phpmyadmin.co/ 
+-- rem typing four items in login page:
+-- rem server:   sql2.freemysqlhosting.net
+-- rem username: sql233342 (also can be used as database name or uid or schema)
+-- rem password: aT8!vX3*
+-- rem identify charachters to follow inputing.
+-- rem and then click on sql233342 schema to operate this online database. 
+-- rem Please note that do not change tables structrue and delete sample data while operating the hosting mysql database, thanks.
+-- rem another things like as client documentation and created ERD and its transform table and data, please read my attached files. 
+  
+
+--  rem Firstly delete all previous tables in which for T3MCE modules with constraints and its all records.
+--  rem note that in terms of sequence because of certain existing constraints among these tables.
+--  rem each tables and data needs 3 steps to be created as below:
+--  rem step 1: create primary tables with mapping its weak entities' relevant constraints 
+--  rem step 2: insert sample data that retrieve from client modules into corresponding tables
+--  rem step 3: check tables and data with matching mutual constraint in rows
+
+
+--  rem ---- clean table with cascade constraints in the order
+drop table sql233342.test_T3MCE CASCADE;
+drop table sql233342.subitem_T3MCE CASCADE;
+drop table sql233342.themodule_T3MCE CASCADE;
+drop table sql233342.modules_T3MCE CASCADE;
+ddrop table sql233342.supervisor CASCADE;
+drop table sql233342.course CASCADE;
+drop table sql233342.student CASCADE;
+
+
+--  rem step 2: ---- create each primary tables
+--  rem ---- create table sql233342.student
+Create table ssql233342.student (
+student_id char(9),
+student_number char(9),
+student_name varchar(50),
+student_email varchar(50),
+primary key (student_id));
+
+--  rem step 3: ---- insert into 7 rows of data
+insert into sql233342.student values('std000001','sn0000001','Christopher Gwozdecky','gwo000001@algonquinlive.com');
+insert into sql233342.student values('std000002','sn0000002','Matthew Toderian','tod000001@algonquinlive.com');
+insert into sql233342.student values('std000003','sn0000003','Thomas Milks','mil000001@algonquinlive.com');
+insert into sql233342.student values('std000004','sn0000004','Ron Trnka','trn000001@algonquinlive.com');
+insert into sql233342.student values('std000005','sn0000005','Zhilong Wu','wu0000001@algonquinlive.com');
+insert into sql233342.student values('std000006','sn0000006','Richard Owusuachaw','owu000001@algonquinlive.com');
+insert into sql233342.student values('std000007','sn0000007','Desen Guo','guo000001@algonquinlive.com');
+
+--  rem step 4: ---- check table student
+select * from sql233342.student;
+
+
+--  rem ===== create others following tables and data as the same 3 steps =======
+
+--  rem ---- create table sql233342.supervisor
+Create table sql233342.supervisor (
+supervisor_id char(9),
+supervisor_number char(9),
+supervisor_name varchar(50),
+supervisor_email varchar(50),
+primary key (supervisor_id));
+
+--  rem ---- insert into 3 rows of data
+insert into sql233342.supervisor values('stf000001','pf0000001','Patricia Murphy','mur000001@algonquincollege.com');
+insert into sql233342.supervisor values('stf000002','pf0000002','Stanley Pieda','pie000002@algonquincollege.com');
+insert into sql233342.supervisor values('stf000003','pf0000003','Todd Kelley','kel000003@algonquincollege.com');
+
+--  rem ---- check table sql233342.supervisor
+select * from sql233342.supervisor;
+
+
+
+--  rem ---- create table sql233342.course
+Create table sql233342.course (
+course_id char(9),
+course_number char(7),
+course_name varchar(100),
+primary key (course_id));
+
+--  rem ---- insert 2 rows data
+insert into sql233342.course values('course001','CST8334','software development project');
+insert into sql233342.course values('course002','CST8276','database advanced topics');
+
+--  rem ---- check table sql233342.course
+select * from sql233342.course;
+
+
+
+--  rem ---- create table sql233342.modules_T3MCE
+Create table sql233342.modules_T3MCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+module_context varchar(150),
+primary key (student_id,finished_date,module_id));
+
+--  rem ---- insert into 7 rows data
+insert into sql233342.modules_T3MCE values('std000001',curdate(),'mdle00001','Safety (Module 1)');
+insert into sql233342.modules_T3MCE values('std000002',curdate(),'mdle00002','Professional Conduct/Patient Communication (Module 2)');
+--  rem ---- check table modules_T3MCE
+select * from sql233342.modules_T3MCE;
+
+
+
+--  rem ---- create table sql233342.themodule_T3MCE
+Create table sql233342.themodule_T3MCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+item_id char(9),
+item_context varchar(150),
+item_code varchar(50),
+item_subitems int(2),
+item_comments varchar(200),
+student_name varchar(50),
+supervisor_name varchar(50),
+primary key (student_id,finished_date,module_id,item_id),
+foreign key (student_id,finished_date,module_id) references sql233342.modules_T3MCE(student_id,finished_date,module_id));
+
+--  rem ---- insert into items(item00001-4) of mdle00001 known as Safety (Module 1)
+insert into sql233342.themodule_T3MCE values('std000001',curdate(),'mdle00001','item00001','Demonstrate Hygiene & Universal Precautions','(1.2g & 3.1c):',3,'Supervised Level',NULL,NULL);
+
+--  rem ---- insert into items(item00001-3) of sql233342.mdle00002 known as Professional Conduct/Patient Communication (Module 2)
+insert into sql233342.themodule_T3MCE values('std000002',curdate(),'mdle00002','item00001','Demonstrate Positive Regard','(1.3a):',4,'Assisted Level',NULL,NULL);
+
+--  rem ---- check table sql233342.themodule_T3MCE
+select * from sql233342.themodule_T3MCE;
+
+
+-- rem note: column sitem_example can be used for show reference information if your part needed, 
+-- rem its value consist of several character strings with "+" connecting between them
+-- rem that could be shown up line by line of subitems in certain type of multi-lines box rocessed by module of your program if non-NULL, the example button control is disable.
+-- rem + sign can be used to convert to return controlling function, if want to know how many lines to show those strings, can get it from a column sitem_subitems   
+--  rem ---- create table sql233342.subitem_T3MCE
+Create table sql233342.subitem_T3MCE (
+student_id char(9),
+finished_date date,
+module_id char(9),
+item_id char(9),
+sitem_id char(9),
+sitem_context varchar(150),
+sitem_grade varchar(20),
+sitem_subitems int(2),
+sitem_example varchar(400),
+primary key (student_id,finished_date,module_id,item_id,sitem_id),
+foreign key (student_id,finished_date,module_id,item_id) references sql233342.themodule_T3MCE(student_id,finished_date,module_id,item_id));
+
+--  rem ---- insert into sitems(sitem0001-3) of item00001 of mdle00001 known as Safety (Module 1)
+insert into sql233342.subitem_T3MCE  values('std000001',curdate(),'mdle00001','item00001','sitem0001','Demonstrate standard hygiene practices*','Excellent',1,'Washing hands etc.');
+insert into sql233342.subitem_T3MCE  values('std000001',curdate(),'mdle00001','item00001','sitem0002','Maintain grooming, dress and hygiene appropriate to the practice setting*','Good',1,'Uniform, shoes, nametag etc.');
+insert into sql233342.subitem_T3MCE  values('std000001',curdate(),'mdle00001','item00001','sitem0003','Apply standard precautions for infection control*','Satisfactory',1,'Washing table, faceplate, clean sheets etc.');
+
+--  rem ---- insert into sitems(sitem0001-4) of item00001 of mdle00002 known as Professional Conduct/Patient Communication (Module 2)
+insert into sql233342.subitem_T3MCE  values('std000002',curdate(),'mdle00002','item00001','sitem0001','Drape patient appropriately for treatment','Excellent',3,'Pillowing and/or bolstering appropriately for the presenting condition+Insures that the draping is secured*+The draping is rearranged for his/her comfort*');
+insert into sql233342.subitem_T3MCE  values('std000002',curdate(),'mdle00002','item00001','sitem0002','Select appropriate positioning*','Excellent',0,NULL);
+insert into sql233342.subitem_T3MCE  values('std000002',curdate(),'mdle00002','item00001','sitem0003','Direct and position patient*','Good',0,NULL);
+insert into sql233342.subitem_T3MCE  values('std000002',curdate(),'mdle00002','item00001','sitem0004','Modify position according to patient response*','Satisfactory',3,'Insure that female breasts are not exposed except when being treated in accordance with+The patient''s genitalia or gluteal cleft are not exposed+Rational for draping, pillowing and/or bolstering appropriately for the presenting condition');
+
+--  rem ---- check table sql233342.subitem_T3MCE
+select * from sql233342.subitem_T3MCE;
+
+
+
+--  rem ---- this is an associated entity that links with 4 entities of student, supervisor, course and  modules_T3MCE
+Create table sql233342.test_T3MCE (
+student_id char(9),
+supervisor_id char(9),
+finished_date date,
+course_id char(9),
+module_id char(9),
+primary key (student_id,supervisor_id,finished_date,course_id,module_id),
+foreign key (student_id) references sql233342.student(student_id),
+foreign key (supervisor_id) references sql233342.supervisor(supervisor_id),
+foreign key (course_id) references sql233342.course(course_id),
+foreign key (student_id,finished_date,module_id) references sql233342.modules_T3MCE(student_id,finished_date,module_id));
+
+--  rem ---- insert into 8 rows of data if wnat to statistic a student's historical grades just based on student_id, finished_date, module_id, item_id, sitem_id in different date 
+insert into sql233342.test_T3MCE values('std000001','stf000001',curdate(),'course001','mdle00001');
+insert into sql233342.test_T3MCE values('std000001','stf000002',curdate(),'course001','mdle00001');
+insert into sql233342.test_T3MCE values('std000002','stf000001',curdate(),'course001','mdle00002');
+insert into sql233342.test_T3MCE values('std000002','stf000002',curdate(),'course001','mdle00002');
+
+--  rem ---- check table sql233342.test_T3MCE
+select * from sql233342.test_T3MCE;
+
+
+--  rem =================== end of  all tables and some data for T3MCE modules ==================================
