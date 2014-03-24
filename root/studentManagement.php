@@ -78,7 +78,6 @@
       <p>
         <input name="ViewStudent" type="button" value="Save Student" style="width:140px"/>
         <input name="ViewStudent" type="button" value="Delete Student" style="width:140px"/>
-        <input name="ViewStudent" type="button" value="Grade Management" style="width:140px"/>
       </p>
     </div>
   </div>
