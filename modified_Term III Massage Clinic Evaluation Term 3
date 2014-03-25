@@ -1,0 +1,486 @@
+
+Term III Massage Clinic Evaluation (called T3MCE is used in suffix of tables by me ) <= at modules level 
+                               Module (1) Safety <=  at certain module level  as a module_id (mdle00001) in modules_T3MCE as a parent table that can be mapped to its child table themodule_T3MCE 
+Demonstrate Hygiene & Universal Precautions (1.2g & 3.1c):  <= at item level as(:) item_id(item00001)  in a themodule_T3MCE table.  Another part is a (1.2g & 3.1c):  as a item_code in the same table for searching like as item_code(‘(1.2g & 3.1c): ‘) 
+
+	Demonstrate standard hygiene practices* <= at subitem level, as a sitem_id in subitem table. If the subitem has child item(s), sitem_subitems attribute should have a number of its sub-subitem(s); if not so, its value of the attribute is 0. Here, the subitem has a child sub-subitem as ssitem_id(ssitem001) and sitem-subitems(1)
+o	Washing hands etc.  <= at ssubitem level as a ssitem_id in ssubitem table. As principle is the same as its parent’s subitem known as ssitem_id(ssitem001)
+	Maintain grooming, dress and hygiene appropriate to the practice setting* <= subitem:sitem_id(sitem0002)
+o	Uniform, shoes, nametag etc. <= sub-subitem : ssitem_id (ssitem001)
+	Apply standard precautions for infection control* <= subitem : sitem_id (sitem0003) 
+o	Washing table, faceplate, clean sheets etc. <= sub-subitem : ssitem_id (ssitem001)
+
+	Excellent     Good    Satisfactory   Poor    Inadequate <= at different 5 evaluation levels, as a sitem_grade attribute sitem_grade or its child ssitem_grade if having in the subitem table or ssubitem table. Their value of grades should be posted as original pattern 
+Comments: <= as a comments attribute in themodule table
+
+Supervised Level  <= the vaule of attribute of comments
+
+Date <= finished_date___ Student_<= can get it from student_id___ supervisor <= can get it supervisor_id ______________________
+Zhilong’s comments :
+
+1.	For more details specifically between client module and corresponding database attributes, tables and constraints, you can reference my new SQL script, code and ERD.  
+2.	For an informal description of the client module pattern can be transformed database table and related attributes regarding principle of database modeling with ERD to different types of entities shown as attached SQL script in the sources code part. The part of other modules are probably the most similar this pattern with transformative mechanism in the first module and its child items described. Please note that words with red color comments to explain how to transform between client evaluation form and database tables, attributes. I applied rows constraints in referential integration with parent entity and its weak entity in a recursive way to create RDB tables from client evaluation modules. And another aspect of design, I think that it is necessary to use primary keys and its corresponding foreign keys in student_id and finished_date attributes to each row. Although it could be a little bit of denormalization, and needs a bit more space, it can take many advantages of writing sql statements become much simple and easier. Moreover, it also can identify the same records except each different finished date only to be stored in the tables. It can be used for statistic certain student grades from those historical grades to create graph available to meet client request.  
+3.	For other modules of the two documents shown <Mss 3041 Teacher Student OSCE Background Information-Final 2013.docx> and <Mss NEW 3030 & 3040 Treatment OSCE  2013 copy.docx > client provided, I try to do them as well recently. All of tables and diagram are based on Oracle 11g express version and Oracle SQL Developer. As you know, we are using 
+Demonstrate Safe & Comfortable Treatment Environment (3.1b): <= item as(:) item_id(item00002)
+
+	Establish and maintain a safe and comfortable environment*  <= subitem : sitem_id(sitem0001) hasn’t child sub-subitem(s) 
+	Ensure setting and equipment meet patient needs  <= subitem : sitem_id(sitem0002)
+	Maintain equipment in proper working order*  <= subitem as sitem_id(sitem0003) has 4 child sub-subitems 
+o	Clean and well organized working space <= sub-subitem : ssitem_id(ssitem001)
+o	Proper table type, stool, chair and faceplate etc. <= sub-subitem : ssitem_id(ssitem002)
+o	Working thermophore, stethoscope, BP cuff & goniometer <= sub-subitem : ssitem_id(ssitem003)
+o	Pillow, blankets, sheets and bolsters <= sub-subitem : ssitem_id(ssitem004)
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments: 
+
+Assisted Level
+
+Date_________ Student_________________________ Supervisor________________________
+Microsoft SQL server for our ASP.NET. This changing made would be very small, just being  transform from number datatype  to decimal datatype and data format at all before load them to MS SQL server.     
+
+
+
+
+
+
+Demonstrate Draping/Pillowing & Positioning (3.1f,g):
+
+	Drape patient appropriately for treatment 
+o	Pillowing and/or bolstering appropriately for the presenting condition
+o	Insures that the draping is secured* 
+o	The draping is rearranged for his/her comfort* 
+
+	Excellent     Good    Satisfactory    Poor    Inadequate
+
+	Select appropriate positioning* 
+	Direct and position patient* 
+	Modify position according to patient response* 
+o	Insure that female breasts are not exposed except when being treated in accordance with 
+o	The patient's genitalia or gluteal cleft are not exposed
+o	Rational for draping, pillowing and/or bolstering appropriately for the presenting condition
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments: 
+
+Supervised Level
+
+Date_________ Student_________________________ Supervisor________________________
+
+
+
+
+
+Demonstrate Professional Boundaries In Relationship With Patient (1.3b):
+
+	Manage time with patient effectively 
+	Manage personal responses to patient reactions* 
+	Demonstrate respect for the personal boundaries of patients* 
+o	Interviewing and assessment no more than 35 min
+o	Finish treatment with time available for document and re-assessment
+o	Without overt bias, reflect on patient responses before responding to patient
+o	Student therapist does not use probing questions on sensitive personal topic areas 
+
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments: 
+
+Assisted Level
+
+D Date_________ Student_________________________ Supervisor________________________
+
+
+
+ 
+Demonstrate Respect Patient's Physical Privacy (1.3c):
+
+	Direct patient in degree of disrobing* 
+	Create an environment of privacy and safety 
+	Respond to patients individual privacy needs* 
+o	Communicate via informed consent that the patient can disrobe to their comfort level
+o	Insure drapes are closed during (supine to prone) re-positioning of patient
+o	Communicate student clinic educational requirements as it relates to individual privacy issues
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments: 
+
+Assisted Level
+
+Date_________ Student_________________________ Supervisor________________________
+Date
+
+
+       
+
+ 
+Term III Massage Clinic Evaluation 
+Professional Conduct/Patient Communication (Module 2) 
+
+Demonstrate Positive Regard (1.3a):
+
+	Demonstrate respect for the patient
+	Support the right of the patient to determine the course of treatment*
+	Establish rapport with the patient*
+	Respond empathically*
+o	By way of students actions
+o	Have in mind that the modalities used may not always be in line with the treatment being performed do to academic requirements
+o	Rapport can be demonstrated anytime during the student patient interaction
+o	Empathy can be demonstrated anytime during the student patient interaction
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+
+
+Comments:
+
+Assisted Level
+
+Date_________ Student_________________________ Supervisor________________________
+
+Demonstrate Active Listening Skills (1.1g):
+
+	Demonstrate active listening*
+	Affirm key points*
+	Clarify contradictions*
+o	Not speaking when the patient is talking, eye contact, body facing patient and not interrupting patient without cause
+o	Communicate back key topic areas related to the patient needs
+o	Identify any precaution and/or contraindications
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+
+Comments:
+
+Assisted Level
+ Date_________ Student_________________________ Supervisor________________________
+
+
+
+
+
+
+Demonstrate Effective Oral Communication/Interviewing Skills (1.1b):
+
+	Employ clear, concise and profession-specific language
+	Speak in a manner that corresponds to the needs of the listener*
+	Employ appropriate pace, tone and projection of voice*
+	Employ effective questioning techniques*
+o	Any terminology that relates to assessment, treatment, impairments, functional limitations (student(s) will need to us lay terms to patient when needed)
+o	Communicate at the level and understanding to the patient
+o	Use open and closed ended questions 
+o	Use clarifying questions
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+
+
+Comments:
+
+Assisted Level
+
+Date_________ Student_________________________ Supervisor________________________
+
+ 
+
+
+Term III Massage Clinic Evaluation
+Patient Consent Module (3) 
+
+
+Demonstrate Informed and Ongoing Consent (1.3e):
+
+	Obtain informed consent prior to performing assessment, treatment and reassessment*
+o	Assessment (What, Why, Exacerbations, Questions, Draping, and Empowerment)
+o	Treatment (Areas, Benefits, Consequences, Draping & Empowerment)
+o	Student needs to clarify any question(s) that the patient is unclear about 
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+
+
+Comments:
+
+Assisted Level
+
+ Date_________ Student_________________________ Supervisor________________________
+
+
+
+Demonstrate Ongoing, Purposeful Observation (2.1f):
+
+	Demonstrate on-going, purposeful observation
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+
+ Assisted Level 
+Date_________ Student_________________________ Supervisor________________________
+
+ 
+Term III Massage Clinic Evaluation 
+Patient Assessment Module (4) 
+
+
+
+
+     
+Demonstrate Vital Signs Assessment (2.1p):
+
+	Identify the indications, contraindications and precautions for performing vital signs assessment
+	Describe the process for performing a vital signs assessment*
+	Communicate the assessment procedure to patient*
+	Demonstrate vital signs assessment based upon patient history and presentation
+	Differentiate between normal and abnormal findings*
+o	Setup and implementing BP protocol
+o	Identifying normal and or high blood pressure
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+
+ Assisted Level 
+Date_________ Student_________________________ Supervisor________________________
+
+Demonstrate Postural Assessment (2.1g):
+
+	Identify the indications, contraindications and precautions for performing postural assessment
+	Describe the process for performing a vital signs assessment*
+	Communicate the assessment procedure to patient*
+	Demonstrate postural assessment based upon patient history and presentation*
+	Differentiate between normal and abnormal findings*
+o	This will be done without a gravity line
+o	Used for upper/lower cross syndrome
+o	Must identify 5 to 6 points on the body that relate to a postural evaluation 
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+
+ Assisted Level 
+Date_________ Student_________________________ Supervisor________________________
+
+ 
+
+Demonstrate The Following Orthopedic Assessment Structure (subcategory of 2.1d): 
+
+	Identify the indications, contraindications and precautions for performing orthopedic assessment*
+	Describe the process for performing an assessment
+	Communicate the assessment procedure to patient*
+	Demonstrate a general orthopedic assessment* (based upon patient history and presentation not necessary in term III)
+	Differentiate between normal and abnormal findings
+o	Recall CIs and precautions to a general orthopedic assessment
+o	Student assess in a organized and systematic framework
+o	Student therapist must assess using AROM, OP, RROM, joint play and palpation*
+o	Recall normal and/or abnormal ROM, end feel, strength rating, hypo/hyper joints and temperature, tone, tenderness and texture
+
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+
+Comments:
+
+Modeled level
+
+Date_________ Student_________________________ Supervisor________________________
+
+General Orthopedic Assessment
+Term III Weeks 7 to 14
+
+ 
+Term III Massage Clinic Evaluation 
+Treatment/Massage Basic Principles Module (5) 
+Demonstrate Self-Protection Biomechanical and Postural Skills (3.1i):
+
+	Demonstrate biomechanical and postural skills that support therapist safety*
+	Adapt biomechanics and posture as required during treatment*
+o	Student therapist needs to be using good postural position(s) during all modality use
+o	Good hand, wrist forearm and shoulder positions
+o	Good neck, lower back, knee biomechanics
+o	Using body positions to apply pressure through their body NOT their shoulders and hands
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+
+Comments:
+
+Supervised Level 
+Date_________ Student_________________________ Supervisor________________________
+
+
+
+Demonstrate Modalities & Techniques For A General Wellbeing Massage (3.1h & 3.2a,1,2,3,4,5,6,7):
+
+	Treat in a manner appropriate to patient presentation*
+	Demonstrate techniques*
+	Incorporate techniques into a comprehensive treatment process*	
+	Modify techniques based on patient history, presentation and response
+	Demonstrate: 
+o	Effleurage
+o	Stroking
+o	Petrissage
+o	Skin rolling 
+o	Vibration
+o	Percussion
+o	Rocking and shaking
+o	General/specific/general, superficial/deep superficial, proximal, distal proximal
+o	Appropriate sequencing of modalities and techniques
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+
+Supervised Level 
+Date_________ Student_________________________ Supervisor________________________
+
+Demonstrate Thermal Therapy (3.2.e 8):
+
+	Explain the purposes, effects and outcomes of heat pack treatments*
+	Demonstrate the different types of heat pack treatments*
+	Incorporate heat pack treatments into a comprehensive treatment process*
+	Modify heat pack treatments based on patient response
+o	The student therapist uses a thermophore, hydrocollator 
+o	Checks in with patient to confirm they are comfortable 
+o	Check skin during heating application
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+ Assisted Level 
+Date_________ Student_________________________ Supervisor________________________
+
+Demonstrate Cold Pack & Contrast Treatment (3.2.e 10 &18):
+
+	Explain the purposes, effects and outcomes of cold pack treatments*
+	Demonstrate the different types of cold pack treatments
+	Incorporate cold pack treatments into a comprehensive treatment process*
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+
+Comments:
+ Assisted Level 
+Date_________ Student_________________________ Supervisor________________________
+
+ 
+Demonstrate (Low Grade) Traction, Distraction & Sustained Joint Mobilization Techniques (3.2.d1):
+	Demonstrate traction, distraction, and sustained techniques*
+	Incorporate techniques into a comprehensive treatment process*
+	Modify traction, distraction & sustained techniques based on patient history, presentation and response
+o	The student will incorporate all three techniques into a treatment plan
+o	Increases synovial movement, decrease muscle tone and joint pain 
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+ Assisted Level 
+
+Date_________ Student_________________________ Supervisor________________________
+
+
+          
+           
+
+ 
+Term III Massage Clinic Evaluation
+Documentation & Critical Thinking Module (6)
+Demonstrate Basic Critical Thinking Skill (1.2i):
+	Apply ethical principles
+	Assess relevant evidence
+	Incorporate the patient's situation and needs*
+	Adapt to operational constraints
+	Determine a course of action*
+	Provide rationale for decisions*
+	Accept responsibility for decisions and actions
+o	The student therapist should be able to do basic problem solving skills relative to the clinical environment and treatment planning
+o	Proper attendance, attitude, organization, time management and decision making process
+o	The student will need to take responsibility for not being properly prepared for his/her clinical rotation(s) this could range from not being prepared to do clinical module or implementing appropriate modalities into a treatment plan
+o	The student therapist will need to communicate to patient that asks for a general relaxation (but has a acute, sub-acute chronic and/or referred pain) what massage therapy they can offer the patient
+
+	 Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+Assisted Level
+
+Date_________ Student_________________________ Supervisor________________________
+
+
+Demonstrate Basic Documentation (1.1a):
+	Practice at a level consistent with knowledge and abilities
+	Document complete and accurate information*
+	Ensure legibility of information*
+	Employ clear, concise and profession-specific language*
+	Write in a manner that corresponds to the needs of the reader*
+	Employ appropriate formatting, grammar and spelling
+o	Date, student’s, patient’s names, cost length of time of treatment
+o	Legible, black or blue ink, 
+o	All assessment and treatment information
+o	Up dated patient history 
+
+	Excellent      Good    Satisfactory    Poor    Inadequate
+Comments:
+  Assisted Level 
+
+Date_________ Student_________________________ Supervisor________________________
+
+
+Over Arching Evaluation Material 
+
+Communication Issues:
+
+
+
+
+
+
+
+
+
+
+
+
+Date_________ Student_________________________ Supervisor________________________
+
+Professionalism Issues:
+
+
+
+
+
+
+
+
+
+
+
+
+
+Date_________ Student_________________________ Supervisor________________________
+
+ This section concerns areas that are not specifically evaluated in the term 3 module format. There are approximately 80 modules that cover all of the areas for entrance to practice. We cannot test all 80 modules but select a variety of modules for each term. Therefor the supervisor needs to be able to evaluate students on over arching content areas. These areas are Communication, Professionalism, Documentation and Safety. If your supervisor finds that you are weak and/or failing any of these areas, you will be directed to remediate this content area. This information can be found in the other modules that are not being specifically tested in your term.
+
+
+ 
+
+Documentation Issues:
+
+
+
+
+
+
+
+
+
+
+
+
+
+Date_________ Student_________________________ Supervisor________________________
+
+
+
+Safety Issues:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Date_________ Student_________________________ Supervisor________________________
+
+
