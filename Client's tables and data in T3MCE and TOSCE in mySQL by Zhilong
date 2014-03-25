@@ -1,0 +1,258 @@
+
+-- rem Author: Zhilong Wu
+-- rem Eamil: wu000090@algonquinlive.com
+-- rem Source coding is written by mySQL statemets to test running them available in oracle and MySQL 
+-- rem Record of Data that is to retreive from client's modules   
+-- rem Running enviornment MySQL workbench57
+-- rem Running result: without problems by verified by MySQL workbench and Oracle 11g express Edition
+-- rem Finish date: 2014-03-24
+
+-- rem The following scripts to create tables and inserted sample data is designed for 
+-- rem for <<Term III Massage Clinic Evaluation>> and <<Mss  NEW 3030 & 3040 Treatment OSCE  2013 copy>>
+-- rem those insertd sample data are retrieved from the two real client modules that can be used to test
+-- rem in order to understand these tables and data with constraints, please read relevant attached ERD and 
+-- rem client documents in which writen words with red colour is my comments on where should be identified
+-- rem designed thinking. If have more information and concerns, please contact me by eamil earily asap. 
+  
+
+-- rem Here student_id is known as a primary key in this table. 
+-- rem For the value of student_number should be stored by student_id where to input in your term or part
+Create table student (
+student_id char(9),
+student_number char(9),
+student_name varchar(50),
+student_email varchar(100),
+student_program varchar(100),
+student_course varchar(100),
+primary key (student_id));
+
+insert into student values('std000001','sn0000001','Christopher Gwozdecky','gwo000001@algonquinlive.com','computer programmer','Advanced Database Topics');
+insert into student values('std000002','sn0000002','Matthew Toderian','tod000001@algonquinlive.com','computer programmer','software development project');
+insert into student values('std000003','sn0000003','Thomas Milks','mil000001@algonquinlive.com','computer programmer','software development project');
+insert into student values('std000004','sn0000004','Ron Trnka','trn000001@algonquinlive.com','computer programmer','software development project');
+insert into student values('std000005','sn0000005','Zhilong Wu','wu0000001@algonquinlive.com','computer programmer','software development project');
+insert into student values('std000006','sn0000006','Richard Owusuachaw','owu000001@algonquinlive.com','computer programmer','software development project');
+insert into student values('std000007','sn0000007','Desen Guo','guo000001@algonquinlive.com','computer programmer','software development project');
+
+-- rem check the table student and inserted data
+select * from student;
+
+-- rem supervisor is a professor as instructor or examiner as well
+Create table supervisor (
+supervisor_id char(9),
+supervisor_number char(9),
+supervisor_name varchar(50),
+supervisor_email varchar(100),
+primary key (supervisor_id));
+
+insert into supervisor values('stf000001','pf0000001','Patricia Murphy','mur000001@algonquincollege.com');
+insert into supervisor values('stf000002','pf0000002','Stanley Pieda','pie000002@algonquincollege.com');
+insert into supervisor values('stf000003','pf0000003','Todd Kelley','kel000003@algonquincollege.com');
+
+select * from supervisor;
+
+
+Create table course (
+course_id char(9),
+course_number char(7),
+course_section varchar(50),
+course_name varchar(100),
+primary key (course_id));
+
+insert into course values('course001','CST8334','410','software development project');
+insert into course values('course002','CST8276','411','database advanced topics');
+
+select * from course;
+
+
+-- rem the table is stored all clients modules with module_id identically
+-- rem module_id is separated into several range to use because of reducing
+-- rem different types of sequences. T3MCE's range is located in mdle00001-mdle00100
+-- rem TOSCE is used for mdle01001-mdle01100. Other client modules is considered later. 
+Create table modules (
+module_id char(9),
+module_context varchar(100),
+updated_person varchar(100),
+updated_date date, 
+primary key (module_id));
+
+-- rem ---- insert 10 rows sample data of module1-10 of TOSCE modules
+insert into modules values('mdle00001','Resisted Remedial Exercises','Matthew T',curdate());
+insert into modules values('mdle00002','Sustained & Autogenic/Reciprocal Stretching Techniques','Matthew T',curdate());
+insert into modules values('mdle00003','Low Grade Joint Mobilization I & II Sustained and Low Grade I & II Oscillations','Matthew T',curdate());
+insert into modules values('mdle00004','Myofascial Trigger Points','Matthew T',curdate());
+insert into modules values('mdle00005','High Grade Joint Mobilization Sustained Grade III and/or High Grade Oscillations III & IV','Matthew T',curdate());
+insert into modules values('mdle00006','Connective Tissue Technique (Friction)','Matthew T',curdate());
+insert into modules values('mdle00007','Fluid Technique Specific Lymph Drainage','Matthew T',curdate());
+insert into modules values('mdle00008','Connective Tissue Technique','Matthew T',curdate());
+insert into modules values('mdle00009','O & I / GTO Techniques','Matthew T',curdate());
+insert into modules values('mdle00010','Vibrations','Matthew T',curdate());
+
+-- rem ---- insert into 2 rows data in module1-2 of  T3MCE modules that start from mdle01001-mdle01100
+insert into modules values('mdle01001','Safety (Module 1)''Matthew T',curdate());
+insert into modules values('mdle01002','Professional Conduct/Patient Communication (Module 2)''Matthew T',curdate());
+
+select * from modules;
+
+
+-- rem the table stores text message of each item included its example(s) in all T3MCE modules.
+-- rem the column item_numbers is to help its example to display easeaily in multi-lines somewhere
+Create table themodule_T3MCE (
+module_id char(9),
+item_id char(9),
+item_context varchar(200),
+item_code varchar(50),
+item_numbers int(2),
+primary key (module_id,item_id),
+foreign key (module_id) references modules(module_id));
+
+-- rem ---- insert into items(item00001-4) of mdle00001 known as Safety (Module 1)
+insert into themodule_T3MCE values('mdle01001','item00001','Demonstrate Hygiene & Universal Precautions','(1.2g & 3.1c):',3);
+-- rem ---- insert into items(item00001-3) of mdle00002 known as Professional Conduct/Patient Communication (Module 2)
+insert into themodule_T3MCE values('mdle01002','item00001','Demonstrate Positive Regard','(1.3a):',4);
+
+select * from themodule_T3MCE;
+
+
+-- rem the table contains a corrsponding subitem to item to be read and shown by your term part
+-- rem during evaluting subitem if have a example text lines
+-- each example subitem text is connected with a '+' sign. this could help convert return control
+-- rem in multi-lines if your part read it out that could be used in a multi-lines text box somewhere
+Create table subitem_T3MCE (
+module_id char(9),
+item_id char(9),
+sitem_id char(9),
+sitem_context varchar(200),
+sitem_example_lines int(2),
+sitem_example varchar(300),
+primary key (module_id,item_id,sitem_id),
+foreign key (module_id,item_id) references themodule_T3MCE(module_id,item_id));
+
+-- rem ---- insert into sitems(sitem0001-3) of item00001 of mdle00001 known as Safety (Module 1)
+insert into subitem_T3MCE  values('mdle01001','item00001','sitem0001','Demonstrate standard hygiene practices*',1,'Washing hands etc.');
+insert into subitem_T3MCE  values('mdle01001','item00001','sitem0002','Maintain grooming, dress and hygiene appropriate to the practice setting*',1,'Uniform, shoes, nametag etc.');
+insert into subitem_T3MCE  values('mdle01001','item00001','sitem0003','Apply standard precautions for infection control*',1,'Washing table, faceplate, clean sheets etc.');
+
+-- rem ---- insert into sitems(sitem0001-4) of item00001 of mdle00002 known as Professional Conduct/Patient Communication (Module 2)
+insert into subitem_T3MCE  values('mdle01002','item00001','sitem0001','Drape patient appropriately for treatment',3,'Pillowing and/or bolstering appropriately for the presenting condition+Insures that the draping is secured*+The draping is rearranged for his/her comfort*');
+insert into subitem_T3MCE  values('mdle01002','item00001','sitem0002','Select appropriate positioning*',0,NULL);
+insert into subitem_T3MCE  values('mdle01002','item00001','sitem0003','Direct and position patient*',0,NULL);
+insert into subitem_T3MCE  values('mdle01002','item00001','sitem0004','Modify position according to patient response*',3,
+'Insure that female breasts are not exposed except when being treated in accordance with
++The patients genitalia or gluteal cleft are not exposed
++Rational for draping, pillowing and/or bolstering appropriately for the presenting condition');
+
+select * from subitem_T3MCE;
+
+
+-- rem the table stores text message of each item included its example(s) in most TOSCE modules.
+-- rem the column item_numbers is to help its example to display easeaily in multi-lines somewhere  
+Create table themodule_TOSCE (
+module_id char(9),
+item_id char(9),
+item_context varchar(200),
+item_code varchar(50),
+item_example_lines int(2),
+item_example varchar(400),
+primary key (module_id,item_id),
+foreign key (module_id) references modules(module_id));
+
+-- rem ---- insert into items(item00001) of mdle00001 known as Communication module with its example in TOSCE
+insert into themodule_TOSCE values('mdle00001','item00001','Communication','(Cognitive):',6,
+'in laymans terms'', explains to the client the procedure of applying resisted exercises
++significant impairment
++two significant outcomes
++questions and responds (check in) correctly and clearly
++benefits and possible negative reactions to the exercises and
++confirms with the client that they can stop if there is a strong negative reaction'
+);
+-- rem ---- insert into items(item00002) of mdle00001 known as Biomechanics,& Coordination module with example in TOSCE
+insert into themodule_TOSCE values('mdle00001','item00002','Biomechanics'', & Coordination','(Psychomotor):',1,
+'therapist demonstrates with clarity and good biomechanical form'
+);
+-- rem ---- insert into items(item00003) of mdle00001 known as Technical & Safety module with example in TOSCE
+-- rem ---- this record is shown that has a example with a comments Yes/No specially. therefore the column comment
+-- rem ---- in table test_TOSCE is needed to be given a comment with YES/NO for this purpose. Other item has not any comments just put on NULLs    
+insert into themodule_TOSCE values('mdle00001','item00003','Technical & Safety','(Cognitive/Psychomotor):',4,
+'sets, reps, holding and rest periods, number of times per day and per week
++correct or suitable resisted exercise for the presenting condition
++witnesses that the client can perform the exercise
++was the student safe with the procedure: Yes__No__'
+);
+
+select * from themodule_TOSCE;
+
+
+-- rem the table is used for student T3MCE of test , it is an asscoiating table that connect other tables with constraints 
+Create table test_T3MCE (
+student_id char(9),
+supervisor_id char(9),
+finished_date date,
+course_id char(9),
+module_id char(9),
+item_id char(9),
+sitem_id char(9),
+sitem_grade varchar(20),
+sitem_comment varchar(200),
+constraint T3MCE_test_pk primary key (student_id,finished_date,course_id,module_id,item_id,sitem_id),
+foreign key (student_id) references student(student_id),
+foreign key (supervisor_id) references supervisor(supervisor_id),
+foreign key (course_id) references course(course_id),
+foreign key (module_id) references modules(module_id),
+foreign key (module_id,item_id,sitem_id) references subitem_T3MCE(module_id,item_id,sitem_id));
+
+-- rem ---- insert into 4 rows of data if statistic the student to go only based on student_id, finished_date, module_id, item_id, sitem_id noted
+insert into test_T3MCE values('std000001','stf000001',curdate(),'course001','mdle01001','item00001','sitem0001','Excellent','Supervised Level');
+insert into test_T3MCE values('std000001','stf000001',curdate(),'course001','mdle01001','item00001','sitem0002','Good','Supervised Level');
+insert into test_T3MCE values('std000001','stf000001',curdate(),'course001','mdle01001','item00001','sitem0003','Satisfactory','Supervised Level');
+insert into test_T3MCE values('std000002','stf000002',curdate(),'course001','mdle01002','item00001','sitem0001','Excellent','Assisted Level');
+insert into test_T3MCE values('std000002','stf000002',curdate(),'course001','mdle01002','item00001','sitem0002','Good','Assisted Level');
+insert into test_T3MCE values('std000002','stf000002',curdate(),'course001','mdle01002','item00001','sitem0003','Satisfactory','Assisted Level');
+insert into test_T3MCE values('std000002','stf000002',curdate(),'course001','mdle01002','item00001','sitem0004','Poor','Assisted Level');
+
+select * from test_T3MCE;
+
+
+-- rem ---- the table is used for student TOSCE of test , it is an asscoiating table
+-- rem ---- that connect other tables with constraints 
+Create table test_TOSCE (
+student_id char(9),
+supervisor_id char(9),
+finished_date date,
+course_id char(9),
+module_id char(9),
+item_id char(9),
+item_grade varchar(20),
+item_comment varchar(100),
+primary key (student_id,finished_date,course_id,module_id,item_id),
+foreign key (student_id) references student(student_id),
+foreign key (supervisor_id) references supervisor(supervisor_id),
+foreign key (course_id) references course(course_id),
+foreign key (module_id) references modules(module_id),
+foreign key (module_id,item_id) references themodule_TOSCE(module_id,item_id));
+
+-- rem ---- insert this record into the table in the next day for getting statistic data in graph to show up
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00001','item00001','Poor',NULL);
+
+-- rem ---- insert sample data into 3 rows
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00001','item00001','Excellent',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00001','item00002','Good',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00001','item00003','Excellent','Yes');
+-- rem ---- if themodule_TOSCE has inserted module 2-4(mdle00002-4) records.., the rest records can be inserted. 
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00002','item00001','Excellent',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00002','item00002','Good',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00002','item00003','Excellent','No');
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00003','item00001','Satisfactory',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00003','item00002','Poor',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00003','item00003','Excellent','No');
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00004','item00001','Excellent',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00004','item00002','Poor',NULL);
+insert into test_TOSCE values('std000001','stf000001',curdate(),'course001','mdle00004','item00003','Excellent','Yes');
+
+select * from test_TOSCE;
+
+-- rem ---- get example text in multi-lines for certain subitem to show it up somewhere
+select th.sitem_example from test_T3MCE te, subitem_t3mce th where (te.module_id = th.module_id )
+and (te.item_id = th.item_id) 
+and (te.sitem_id = th.sitem_id)
+and te.module_id = 'mdle01002' and te.item_id='item00001' and te.sitem_id='sitem0001';
