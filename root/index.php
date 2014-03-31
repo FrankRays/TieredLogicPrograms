@@ -49,7 +49,7 @@ function redirectTeacher() {
 <body>
 <div id="wrapper">
   <div id="title_nav">
-    <div id="nav"> <a href="index.php">HOME</a> | <a href="index.php?logout">LOGOUT</a> | <a href="#">ABOUT US</a> | <a href="#">CONTACT</a> </div>
+    <div id="nav"> <a href="index.php">HOME</a> | <a href="index.php?logout">LOGOUT</a></div>
   </div>
   <div id="container">
     <div id="header"> </div>
@@ -78,7 +78,7 @@ if ($login->isUserLoggedIn() == true) {
   <!--close container-->
   
   <div id="footer">
-    <div id="footer_nav"> <a href="index.php">HOME</a> | <a href="#">ABOUT US</a> | <a href="#">CONTACT</a> </div>
+    <div id="footer_nav"> <a href="index.php">HOME</a></div>
     <!--close footer_nav-->
     <div id="footer_text">&#169;Tiered Logic Programs/Algonquin College 2014</div>
   </div>
