@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    <span class="firstTitle">STUDENT</span> <span class="secondTitle">ASSESSMENT.COM</span>
+                </h1>
+            </div>
+            <div class="loginDisplay">
+                <span>
+                    <% if (Session["EmployeeID"] != null && Session["EmployeeID"].ToString() != "")
+                       { %>
+                    Welcome
+                    <%=Session["FirstName"]%>
+                    <%=Session["LastName"]%>
+                    <span class="tab"></span>
+                    <asp:LinkButton ID="LinkButtonHome" runat="server">HOME | </asp:LinkButton>
+                    <asp:LinkButton ID="LinkButtonLogout" runat="server" OnClick="LinkButtonLogout_Click">LOG OUT | </asp:LinkButton>
+                    <% }
+                       else
+                       {%>
+                    <asp:LinkButton ID="LoginLinkButton" runat="server" PostBackUrl="~/Login.aspx">LOGIN | </asp:LinkButton>
+                    <asp:LinkButton ID="LinkButton1" runat="server">HOME | </asp:LinkButton>
+                    <% } %>
+                    <asp:LinkButton ID="LinkButtonAboutUs" runat="server">ABOUT US | </asp:LinkButton>
+                    <asp:LinkButton ID="LinkButtonContact" runat="server">CONTACT</asp:LinkButton>
+                </span>
+            </div>
+            <div class="clear blackBackgoundImg">
+            </div>
+            <div>
+                <asp:ContentPlaceHolder ID="SubMenuContent" runat="server" />
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+    </div>
+    </form>
+</body>
+</html>
