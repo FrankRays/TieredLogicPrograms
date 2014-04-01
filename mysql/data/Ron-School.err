@@ -279,3 +279,30 @@ Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
 2014-04-01 14:06:50 4640 [Note] Event Scheduler: Loaded 0 events
 2014-04-01 14:06:50 4640 [Note] C:\Users\Ron\Documents\GitHub\TieredLogicPrograms/mysql/bin/mysqld_usbwv8.exe: ready for connections.
 Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2014-04-01 14:22:20 7116 [Note] Plugin 'FEDERATED' is disabled.
+2014-04-01 14:22:20 7116 [Note] InnoDB: The InnoDB memory heap is disabled
+2014-04-01 14:22:20 7116 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2014-04-01 14:22:20 7116 [Note] InnoDB: Compressed tables use zlib 1.2.3
+2014-04-01 14:22:20 7116 [Note] InnoDB: Not using CPU crc32 instructions
+2014-04-01 14:22:20 7116 [Note] InnoDB: Initializing buffer pool, size = 128.0M
+2014-04-01 14:22:20 7116 [Note] InnoDB: Completed initialization of buffer pool
+2014-04-01 14:22:20 7116 [Note] InnoDB: Highest supported file format is Barracuda.
+2014-04-01 14:22:20 7116 [Note] InnoDB: The log sequence numbers 1626134 and 1626134 in ibdata files do not match the log sequence number 1910142 in the ib_logfiles!
+2014-04-01 14:22:20 7116 [Note] InnoDB: Database was not shutdown normally!
+2014-04-01 14:22:20 7116 [Note] InnoDB: Starting crash recovery.
+2014-04-01 14:22:20 7116 [Note] InnoDB: Reading tablespace information from the .ibd files...
+2014-04-01 14:22:20 7116 [Note] InnoDB: Restoring possible half-written data pages 
+2014-04-01 14:22:20 7116 [Note] InnoDB: from the doublewrite buffer...
+2014-04-01 14:22:21 7116 [Note] InnoDB: 128 rollback segment(s) are active.
+2014-04-01 14:22:21 7116 [Note] InnoDB: Waiting for purge to start
+2014-04-01 14:22:21 7116 [Note] InnoDB: 5.6.13 started; log sequence number 1910142
+2014-04-01 14:22:21 7116 [Note] Server hostname (bind-address): '*'; port: 3307
+2014-04-01 14:22:21 7116 [Note] IPv6 is available.
+2014-04-01 14:22:21 7116 [Note]   - '::' resolves to '::';
+2014-04-01 14:22:21 7116 [Note] Server socket created on IP: '::'.
+2014-04-01 14:22:21 7116 [Note] Event Scheduler: Loaded 0 events
+2014-04-01 14:22:21 7116 [Note] C:\Users\Ron\Documents\GitHub\TieredLogicPrograms/mysql/bin/mysqld_usbwv8.exe: ready for connections.
+Version: '5.6.13'  socket: ''  port: 3307  MySQL Community Server (GPL)
+2014-04-01 14:36:11 f4c  InnoDB: Error: in ALTER TABLE `login`.`module`
+InnoDB: has or is referenced in foreign key constraints
+InnoDB: which are not compatible with the new table definition.

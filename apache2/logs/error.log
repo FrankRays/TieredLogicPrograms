@@ -1,5 +1,8 @@
-[Tue Apr 01 14:06:49.421243 2014] [mpm_winnt:notice] [pid 1360:tid 380] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
-[Tue Apr 01 14:06:49.421243 2014] [mpm_winnt:notice] [pid 1360:tid 380] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
-[Tue Apr 01 14:06:49.421243 2014] [core:notice] [pid 1360:tid 380] AH00094: Command line: 'C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms/apache2/bin/httpd_usbwv8.exe -d C:/Users/Ron/Documents/GitHub/TieredLogicPrograms/apache2'
-[Tue Apr 01 14:06:49.421243 2014] [mpm_winnt:notice] [pid 1360:tid 380] AH00418: Parent: Created child process 6160
-[Tue Apr 01 14:06:49.904844 2014] [mpm_winnt:notice] [pid 6160:tid 396] AH00354: Child: Starting 64 worker threads.
+[Tue Apr 01 14:22:20.406168 2014] [mpm_winnt:notice] [pid 2580:tid 380] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
+[Tue Apr 01 14:22:20.406168 2014] [mpm_winnt:notice] [pid 2580:tid 380] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
+[Tue Apr 01 14:22:20.406168 2014] [core:notice] [pid 2580:tid 380] AH00094: Command line: 'C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms/apache2/bin/httpd_usbwv8.exe -d C:/Users/Ron/Documents/GitHub/TieredLogicPrograms/apache2'
+[Tue Apr 01 14:22:20.406168 2014] [mpm_winnt:notice] [pid 2580:tid 380] AH00418: Parent: Created child process 5784
+[Tue Apr 01 14:22:20.889769 2014] [mpm_winnt:notice] [pid 5784:tid 396] AH00354: Child: Starting 64 worker threads.
+[Tue Apr 01 14:23:36.037442 2014] [:error] [pid 5784:tid 916] [client 127.0.0.1:52279] PHP Notice:  Trying to get property of non-object in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 62, referer: http://localhost:9090/moduleManagement.php
+[Tue Apr 01 14:25:40.967578 2014] [:error] [pid 5784:tid 916] [client 127.0.0.1:52342] PHP Notice:  Trying to get property of non-object in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 62, referer: http://localhost:9090/moduleManagement.php
+[Tue Apr 01 14:28:07.528435 2014] [:error] [pid 5784:tid 916] [client 127.0.0.1:52406] PHP Notice:  Trying to get property of non-object in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 62, referer: http://localhost:9090/moduleManagement.php
