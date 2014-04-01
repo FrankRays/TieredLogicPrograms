@@ -1,5 +1,5 @@
-[Mon Mar 31 18:29:50.754449 2014] [mpm_winnt:notice] [pid 5184:tid 380] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
-[Mon Mar 31 18:29:50.754449 2014] [mpm_winnt:notice] [pid 5184:tid 380] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
-[Mon Mar 31 18:29:50.754449 2014] [core:notice] [pid 5184:tid 380] AH00094: Command line: 'C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms/apache2/bin/httpd_usbwv8.exe -d C:/Users/Ron/Documents/GitHub/TieredLogicPrograms/apache2'
-[Mon Mar 31 18:29:50.770049 2014] [mpm_winnt:notice] [pid 5184:tid 380] AH00418: Parent: Created child process 4176
-[Mon Mar 31 18:29:51.518851 2014] [mpm_winnt:notice] [pid 4176:tid 396] AH00354: Child: Starting 64 worker threads.
+[Tue Apr 01 14:06:49.421243 2014] [mpm_winnt:notice] [pid 1360:tid 380] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
+[Tue Apr 01 14:06:49.421243 2014] [mpm_winnt:notice] [pid 1360:tid 380] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
+[Tue Apr 01 14:06:49.421243 2014] [core:notice] [pid 1360:tid 380] AH00094: Command line: 'C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms/apache2/bin/httpd_usbwv8.exe -d C:/Users/Ron/Documents/GitHub/TieredLogicPrograms/apache2'
+[Tue Apr 01 14:06:49.421243 2014] [mpm_winnt:notice] [pid 1360:tid 380] AH00418: Parent: Created child process 6160
+[Tue Apr 01 14:06:49.904844 2014] [mpm_winnt:notice] [pid 6160:tid 396] AH00354: Child: Starting 64 worker threads.
