@@ -6,6 +6,10 @@
 <link href="css/projectsite_master.css" rel="stylesheet" type="text/css" />
 </head>
 
+<?php 
+require_once("config/db.php");
+require_once("classes/Student.php");
+?>
 <body>
 <div id="wrapper">
 
@@ -21,27 +25,48 @@
 <div id="container">
 
 <div id="header">
-<form action="" method="get" style="text-align:right">
-COURSE: 
-  <select name="course" id="course">
-    <option>select one...</option>
-    <option>Massage Clinic</option>
-    <option>Course 2</option>
-    </select>
+<form action="" method="POST" style="text-align:right">
 MODULE: 
-  <select name="module" id="module">
-    <option>select one...</option>
-    <option>Module 1</option>
-    <option>Module 2</option>
-    <option>Module 3</option>
-    </select>
+	<select name="module_dropdown" style="width:120px;">
+	<option>Select Module...</option>
+	<?php
+	 	$module_list = new Student();
+		$module_list->populateModuleList();
+	?>
+	</select>
+    <button name="sModule" input type ="submit" >Submit Module</button>
+STUDENT:
+	<select name="student_dropdown">
+	<option>Select student...</option>
+	<?php
+	 	if (isset($_POST['sModule'])){
+		$student_list = new Student();
+		$student_list->populateStudentList();
+		}
+	?>
+</select>
+<button name="sStudent" input type ="submit" >Submit Student</button>
 </form>
 </div><!--close header-->
 <div id="content">
-<h1>Welcome Back,<br/>
-Student Alpha</h1>
-<p>Here are your evalutation result.<br/>
-  Course: Massage Clinic - Module 1<br />
+<h1>Student Info Page</h1>
+
+
+<p>Module: <?php 
+if (isset($_POST['sModule'])){
+$moduledisplay = new Student();
+$moduleshown = $moduledisplay->displayModule();
+}
+
+?>
+<br/>
+
+  Student: <?php 
+if (isset($_POST['sStudent'])){
+$studentdisplay = new Student();
+$studentdisplay->displayStudent();
+}
+?><br />
   </p>
 <p>Demonstrates standard hygiene practices (ie: washes hands, etc.)<br />
 <img src="images/graph1.jpg" alt="graph1" />
