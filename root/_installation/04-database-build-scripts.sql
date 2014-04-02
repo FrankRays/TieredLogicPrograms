@@ -36,7 +36,7 @@ question_id int(6),
 module_name varchar(100),
 question_data varchar(200),
 constraint mod_question_pk primary key (question_data),
-constraint mod_question_fk foreign key (module_name) references module(module_name));
+constraint mod_question_fk foreign key (module_name) references module(module_name) on delete cascade);
 
 Create table question_subitem (
 subitem_id int(6),
@@ -44,14 +44,14 @@ question_data varchar(200),
 subitem_data varchar(200),
 subitem_line_num int(2),
 constraint subitem_pk primary key (subitem_id),
-constraint subitem_fk foreign key (question_data) references module_question(question_data));
+constraint subitem_fk foreign key (question_data) references module_question(question_data) on delete cascade);
 
 Create table assessment_results(
 result_id int(9),
-student_id int(6),
-module_name varchar(100),
+student_number int(9),
+question_data varchar(200),
 question_result int(1),
 comments varchar(200),
 constraint result_pk primary key (result_id),
-constraint result_stu_fk foreign key (student_id) references student (student_id),
-constraint result_mod_fk foreign key (module_name) references module (module_name));
+constraint result_stu_fk foreign key (student_number) references student (student_number) on delete cascade,
+constraint result_ques_fk foreign key (question_data) references module_question (question_data) on delete cascade);

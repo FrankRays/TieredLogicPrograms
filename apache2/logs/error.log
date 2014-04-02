@@ -1,8 +1,7 @@
-[Tue Apr 01 14:22:20.406168 2014] [mpm_winnt:notice] [pid 2580:tid 380] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
-[Tue Apr 01 14:22:20.406168 2014] [mpm_winnt:notice] [pid 2580:tid 380] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
-[Tue Apr 01 14:22:20.406168 2014] [core:notice] [pid 2580:tid 380] AH00094: Command line: 'C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms/apache2/bin/httpd_usbwv8.exe -d C:/Users/Ron/Documents/GitHub/TieredLogicPrograms/apache2'
-[Tue Apr 01 14:22:20.406168 2014] [mpm_winnt:notice] [pid 2580:tid 380] AH00418: Parent: Created child process 5784
-[Tue Apr 01 14:22:20.889769 2014] [mpm_winnt:notice] [pid 5784:tid 396] AH00354: Child: Starting 64 worker threads.
-[Tue Apr 01 14:23:36.037442 2014] [:error] [pid 5784:tid 916] [client 127.0.0.1:52279] PHP Notice:  Trying to get property of non-object in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 62, referer: http://localhost:9090/moduleManagement.php
-[Tue Apr 01 14:25:40.967578 2014] [:error] [pid 5784:tid 916] [client 127.0.0.1:52342] PHP Notice:  Trying to get property of non-object in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 62, referer: http://localhost:9090/moduleManagement.php
-[Tue Apr 01 14:28:07.528435 2014] [:error] [pid 5784:tid 916] [client 127.0.0.1:52406] PHP Notice:  Trying to get property of non-object in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 62, referer: http://localhost:9090/moduleManagement.php
+[Wed Apr 02 10:36:14.607393 2014] [mpm_winnt:notice] [pid 3356:tid 380] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
+[Wed Apr 02 10:36:14.607393 2014] [mpm_winnt:notice] [pid 3356:tid 380] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
+[Wed Apr 02 10:36:14.607393 2014] [core:notice] [pid 3356:tid 380] AH00094: Command line: 'C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms/apache2/bin/httpd_usbwv8.exe -d C:/Users/Ron/Documents/GitHub/TieredLogicPrograms/apache2'
+[Wed Apr 02 10:36:14.610393 2014] [mpm_winnt:notice] [pid 3356:tid 380] AH00418: Parent: Created child process 6284
+[Wed Apr 02 10:36:15.092421 2014] [mpm_winnt:notice] [pid 6284:tid 396] AH00354: Child: Starting 64 worker threads.
+[Wed Apr 02 12:11:29.869484 2014] [:error] [pid 6284:tid 916] [client 127.0.0.1:50388] PHP Fatal error:  Call to a member function real_escape_string() on a non-object in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 189, referer: http://localhost:9090/moduleManagement.php
+[Wed Apr 02 12:40:12.000984 2014] [:error] [pid 6284:tid 900] [client 127.0.0.1:50709] PHP Parse error:  syntax error, unexpected 'else' (T_ELSE), expecting function (T_FUNCTION) in C:\\Users\\Ron\\Documents\\GitHub\\TieredLogicPrograms\\root\\classes\\Module.php on line 70, referer: http://localhost:9090/

@@ -13,15 +13,13 @@ require_once("classes/Module.php");
 if(isset($_POST['add_module'])){
 $add_module = new Module();
 $add_module->addNewModule();
-}
-if(isset($_POST['set_module'])){
-$set_module = new Module();
-$set_module->setModule();
 }if(isset($_POST['addQuestion'])){
 $add_question = new Module();
 $add_question->addQuestions();	
+}if(isset($_POST['delete_module'])){
+$delete_module = new Module();
+$delete_module->deleteModule();	
 }
-
 ?>
 
 <body>
@@ -31,27 +29,7 @@ $add_question->addQuestions();
   </div>
   <div id="container">
     <div id="header">
-      <form action="" method="get" style="text-align:right">
-        COURSE:
-        <select name="course" id="course">
-          <option>select one...</option>
-          <option>Massage Clinic</option>
-          <option>Course 2</option>
-        </select>
-        MODULE:
-        <select name="module" id="module">
-          <option>select one...</option>
-          <option>Module 1</option>
-          <option>Module 2</option>
-          <option>Module 3</option>
-        </select>
-        STUDENT:
-        <select name="student" id="student">
-          <option>select one...</option>
-          <option>Student Alpha</option>
-          <option>Student Beta</option>
-        </select>
-      </form>
+      
     </div>
     <!--close header-->
     <div id="content">
@@ -59,41 +37,61 @@ $add_question->addQuestions();
       <h1>Module Management<br/>
       </h1>
       <h1>
-        <input name="CreateStudent" type="button" value="Create New" style="width:110px"/>
-        <input name="CreateStudent2" type="button" value="Read" style="width:110px"/>
-        <input name="CreateStudent3" type="button" value="Update" style="width:110px"/>
-        <input name="CreateStudent4" type="button" value="Delete" style="width:110px"/>
-      </h1>
-      <p>What would you like your module/quiz to be named?<br/>
-        Module Name:
-        <input name="module_name" type="text" maxlength="300" id="module_name" style="width:300px"/><br/>
-        <input name="set_module" type="submit" value="Set Current" style="width:110px"/>
-        <input name="add_module" type="submit" value="Add New" style="width:110px"/>
         
+      </h1>
+      <p>Insert Module Name:<br/>
+        <input name="module_name" type="text" maxlength="300" id="module_name" style="width:300px"/><br/>
+        <input name="add_module" type="submit" value="Add Module" style="width:110px"/>
+        <input name="delete_module" type="submit" value="Delete Module" style="width:110px"/>
       </p>
-      <table width="500px" border="0" cellpadding="10">
+      <table width="100%" border="0" cellpadding="10">
         <tr>
-          <td style="padding-left:0px" colspan="2"><strong>Questions</strong></td>
+          <td style="padding-left:0px" colspan="2"><p>
+          Select Module to Update:<br/>
+        <select name="module_dropdown" id="module" style="width:300px">
+        <option></option>
+        <?php
+	 		$module_list = new Module();
+			$module_list->populateModuleList();
+			?>
+        </select>
+        </p>
+          Add Questions</td>
         </tr>
         <tr>
-          <td style="padding-left:0px">#1:</td>
-          <td><input name="question1" type="text" maxlength="300" style="width:350px" id="question1"/></td>
+          <td width="100px" style="padding-left:0px">Question #1:</td>
+          <td width="100%"><input name="question1" type="text" maxlength="300" style="width:100%" id="question1"/></td>
         </tr>
         <tr>
-          <td style="padding-left:0px">#2:</td>
-          <td><input name="question2" type="text" maxlength="300" style="width:350px" id="question2"/></td>
+          <td style="padding-left:0px">Example Criteria:</td>
+          <td><input name="question1_criteria" type="text" maxlength="300" style="width:100%" id="question1"/></td>
         </tr>
         <tr>
-          <td style="padding-left:0px">#3:</td>
-          <td><input name="question3" type="text" maxlength="300" style="width:350px" id="question3"/></td>
+          <td style="padding-left:0px">Question #2:</td>
+          <td><input name="question2" type="text" maxlength="300" style="width:100%" id="question2"/></td>
         </tr>
         <tr>
-          <td style="padding-left:0px">#4:</td>
-          <td><input name="question4" type="text" maxlength="300" style="width:350px" id="question4"/></td>
+          <td style="padding-left:0px" >Example Criteria:</td>
+          <td><input name="question2_criteria" type="text" maxlength="300" style="width:100%" id="question1"/></td>
         </tr>
         <tr>
-          <td style="padding-left:0px">&nbsp;</td>
-          <td><input name="addQuestion" type="submit" value="Add Questions" style="width:110px" id="addQuestion"/></td>
+          <td style="padding-left:0px">Question #3:</td>
+          <td><input name="question3" type="text" maxlength="300" style="width:100%" id="question3"/></td>
+        </tr>
+        <tr>
+          <td style="padding-left:0px" >Example Criteria:</td>
+          <td><input name="question3_criteria" type="text" maxlength="300" style="width:100%" id="question1"/></td>
+        </tr>
+        <tr>
+          <td style="padding-left:0px">Question #4:</td>
+          <td><input name="question4" type="text" maxlength="300" style="width:100%" id="question4"/></td>
+        </tr>
+        <tr>
+          <td style="padding-left:0px" >Example Criteria:</td>
+          <td><input name="question4_criteria" type="text" maxlength="300" style="width:100%" id="question1"/></td>
+        </tr>
+        <tr>
+          <td style="padding-left:0px" colspan="2"><input name="addQuestion" type="submit" value="Add Questions" style="width:110px" id="addQuestion"/></td>
         </tr>
       </table>
       <p>&nbsp;</p>
