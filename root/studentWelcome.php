@@ -2,23 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Student Welcome Page</title>
+<title>Student Information Page</title>
 <link href="css/projectsite_master.css" rel="stylesheet" type="text/css" />
 </head>
 
 <?php 
-require_once("config/db.php");
-require_once("classes/Student.php");
-$student = new Student();
+include("classes/Student.php");
 ?>
-
-<script language="javascript" type="text/javascript">
-function updateMenu() {
-b = "<?=$student->sortStudentList();?>";
-alert(b);
-}
-</script>
-
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("select#student").attr("disabled","disabled");
+            $("select#module").change(function(){
+            $("select#student").attr("disabled","disabled");
+            $("select#student").html("<option>wait...</option>");
+            var id = $("select#module option:selected").attr('value');
+            $.post("select_student.php", {id:id}, function(data){
+                $("select#student").removeAttr("disabled");
+                $("select#student").html(data);
+            });
+        });
+        $("form#select_form").submit(function(){
+            var mod = $("select#module option:selected").attr('value');
+            var stu = $("select#student option:selected").attr('value');
+            if(mod>0 && stu>0)
+            {
+                var result = $("select#student option:selected").html();
+                $("#result").html('your choice: '+result);
+            }
+            else
+            {
+                $("#result").html("module: " + mod + "<br />" + " Student: " + stu);
+            }
+            return false;
+        });
+		
+    });
+    </script>
 <body>
 <div id="wrapper">
 
@@ -34,48 +54,24 @@ alert(b);
 <div id="container">
 
 <div id="header">
-<form name="menu_nav" action="" method="POST" style="text-align:right">
+<form action="" method="POST" style="text-align:right" id="select_form">
 MODULE: 
-	<select name="module_dropdown" style="width:120px;" onChange="updateMenu();">
-	<option>Select Module...</option>
-	<?php
-	 	$module_list = new Student();
-		$module_list->populateModuleList();
-	?>
-	</select>
-    <button name="sModule" input type ="submit" >sort</button>
+	<select id="module" style="width:120px;">
+            <?php echo $opt->ShowModule(); ?>
+        </select>
 STUDENT:
-	<select name="student_dropdown" style="width:120px;">
-	<option>Select student...</option>
-	<?php
-		$student_list = new Student();
-	 	if (isset($_POST['sModule'])){
-		$student_list->sortStudentList();
-		}else{
-		$student_list->populateStudentList();}
-	?>
-</select>
-<button name="sStudent" input type ="submit" >select</button>
+	<select id="student">
+             <option value="0">choose student...</option>
+        </select>
+        <input type="submit" value="confirm" />
 </form>
 </div><!--close header-->
+
 <div id="content">
-<h1>Student Info Page</h1>
-
-
-<p> 
-<?php 
-if (isset($_POST['sModule'])){
-$moduledisplay = new Student();
-$moduleshown = $moduledisplay->displayModule();
-}if (isset($_POST['sStudent'])){
-$studentdisplay = new Student();
-$studentdisplay->displayStudent();
-}
-?><br />
+<h1>Student Information Page</h1>
+<div id="result"></div>
   </p>
-<p>Demonstrates standard hygiene practices (ie: washes hands, etc.)<br />
-<img src="images/graph1.jpg" alt="graph1" />
-</p>
+<div id="chart"></div>
 <p>Maintain grooming, dress and hygiene appropriate to the practice setting (ie: uniform, shoes, nametag, etc.)<br />
 <img src="images/graph2.jpg" alt="graph2" />
 </p>

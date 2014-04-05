@@ -1,73 +1,45 @@
 <?php
-/**
- * Class registration
- * handles the user registration
- */
-class Student
+class SelectList
 {
-    /**@var object $db_connection The database connection*/
-    private $db_connection = null;
-    /**@var array $errors Collection of error messages*/
-    public $errors = array();
-    /**@var array $messages Collection of success / neutral messages */
-    public $messages = array();
-	
-	public function populateModuleList(){
-		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		$queryM = "SELECT DISTINCT module.module_name from module";
-		$resultM = $this->db_connection->query($queryM);
-		while ($rowM = $resultM->fetch_assoc()) {
-        		echo "<option value=\"{$rowM['module_name']}\">";
-        		echo $rowM['module_name'];
-        		echo "</option>";
-			}
-	}//close populateModuleList
-	
-	public function sortStudentList(){
-		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		$module_name = $this->db_connection->real_escape_string($_POST['module_dropdown']);
-		$queryS = "SELECT DISTINCT student_fname, student_lname FROM student join assessment_results on student.student_number = assessment_results.student_number join module_question on module_question.question_data = assessment_results.question_data join module on module.module_name = module_question.module_name WHERE module.module_name = '" . $module_name . "';";
-		$resultS = $this->db_connection->query($queryS);
-		while ($rowS = $resultS->fetch_assoc()) {
-        		echo "<option value=\"{$rowS['student_lname']}\">";
-        		echo $rowS['student_lname'];
-				echo " ";
-				echo $rowS['student_fname'];
-        		echo "</option>";
-			}
-	}//close populateModuleList
-	
-	public function populateStudentList(){
-		
-		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		$queryS = "SELECT DISTINCT student_fname, student_lname from student";
-		$resultS = $this->db_connection->query($queryS);
-		while ($rowS = $resultS->fetch_assoc()) {
-        		echo "<option value=\"{$rowS['student_lname']}\">";
-        		echo $rowS['student_lname'];
-				echo ", ";
-				echo $rowS['student_fname'];
-        		echo "</option>";
-			}
-	}
-	
-	public function displayModule(){
-		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		$module_name = $this->db_connection->real_escape_string($_POST['module_dropdown']);
-		$student_name = $this->db_connection->real_escape_string($_POST['student_dropdown']);
-		$_POST['module_dropdown'] = $module_name;
-		echo "Module: " .$module_name. "<br/>";
-		echo "Student: " .$student_name;
-	}
-	
-	public function displayStudent(){
-		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-		$module_name = $this->db_connection->real_escape_string($_POST['module_dropdown']);
-		$student_name = $this->db_connection->real_escape_string($_POST['student_dropdown']);
-		echo "Module: " .$module_name. "<br/>";
-		echo "Student: " .$student_name;
-	}
-
-}//close Student class
-
+    protected $conn;
+ 
+        public function __construct()
+        {
+            $this->DbConnect();
+        }
+ 
+        protected function DbConnect()
+        {
+            include("config/db.php");
+            $this->conn = mysql_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME) OR die("Unable to connect to the database");
+            mysql_select_db(DB_NAME,$this->conn) OR die("can not select the database $db");
+            return TRUE;
+        }
+ 
+        public function ShowModule()
+        {
+            $sql = "SELECT DISTINCT module_name from module";
+            $res = mysql_query($sql,$this->conn);
+            $module = '<option value="0">choose module...</option>';
+            while($row = mysql_fetch_array($res))
+            {
+                $module .= '<option value="' . $row['module_name'] . '">' . $row['module_name'] . '</option>';
+            }
+            return $module;
+        }
+ 
+        public function ShowStudent()
+        {
+            $sql = "SELECT DISTINCT student.student_fname, student.student_lname FROM student join assessment_results on student.student_number = assessment_results.student_number join module on module.module_name = assessment_results.module_name WHERE module.module_name = '$_POST[id]'";
+            $res = mysql_query($sql,$this->conn);
+            $student = '<option value="0">choose...</option>';
+            while($row = mysql_fetch_array($res))
+            {
+                $student .= '<option value="' . $row['student_lname'] . '">' . $row['student_lname'] . '</option>';
+            }
+            return $student;
+        }
+}
+$opt = new SelectList();
 ?>
+    

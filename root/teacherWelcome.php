@@ -70,7 +70,7 @@ function redirectStudentWelcome() {
       <p></p>
       <input type="button" class="btn btn-large btn-primary" onclick="redirectRunAssessment()" value="Run Assessment">
       <p></p>
-      <input type="button" class="btn btn-large btn-primary" onclick="redirectStudentWelcome()" value="Student Welcome">
+      <input type="button" class="btn btn-large btn-primary" onclick="redirectStudentWelcome()" value="Student Information">
       </form>
     </div>
   </div>
