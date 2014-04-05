@@ -9,7 +9,16 @@
 <?php 
 require_once("config/db.php");
 require_once("classes/Student.php");
+$student = new Student();
 ?>
+
+<script language="javascript" type="text/javascript">
+function updateMenu() {
+b = "<?=$student->sortStudentList();?>";
+alert(b);
+}
+</script>
+
 <body>
 <div id="wrapper">
 
@@ -25,44 +34,40 @@ require_once("classes/Student.php");
 <div id="container">
 
 <div id="header">
-<form action="" method="POST" style="text-align:right">
+<form name="menu_nav" action="" method="POST" style="text-align:right">
 MODULE: 
-	<select name="module_dropdown" style="width:120px;">
+	<select name="module_dropdown" style="width:120px;" onChange="updateMenu();">
 	<option>Select Module...</option>
 	<?php
 	 	$module_list = new Student();
 		$module_list->populateModuleList();
 	?>
 	</select>
-    <button name="sModule" input type ="submit" >Submit Module</button>
+    <button name="sModule" input type ="submit" >sort</button>
 STUDENT:
-	<select name="student_dropdown">
+	<select name="student_dropdown" style="width:120px;">
 	<option>Select student...</option>
 	<?php
-	 	if (isset($_POST['sModule'])){
 		$student_list = new Student();
-		$student_list->populateStudentList();
-		}
+	 	if (isset($_POST['sModule'])){
+		$student_list->sortStudentList();
+		}else{
+		$student_list->populateStudentList();}
 	?>
 </select>
-<button name="sStudent" input type ="submit" >Submit Student</button>
+<button name="sStudent" input type ="submit" >select</button>
 </form>
 </div><!--close header-->
 <div id="content">
 <h1>Student Info Page</h1>
 
 
-<p>Module: <?php 
+<p> 
+<?php 
 if (isset($_POST['sModule'])){
 $moduledisplay = new Student();
 $moduleshown = $moduledisplay->displayModule();
-}
-
-?>
-<br/>
-
-  Student: <?php 
-if (isset($_POST['sStudent'])){
+}if (isset($_POST['sStudent'])){
 $studentdisplay = new Student();
 $studentdisplay->displayStudent();
 }

@@ -6,97 +6,82 @@
 <link href="css/projectsite_master.css" rel="stylesheet" type="text/css" />
 </head>
 
+<?php 
+require_once("config/db.php");
+require_once("classes/StudentManager.php");
+
+if(isset($_POST['add_student'])){
+$add_student = new StudentManager();
+$add_student->addStudent();
+}if(isset($_POST['update_student'])){
+$update_student = new StudentManager();
+$update_student->updateStudent();	
+}if(isset($_POST['delete_student'])){
+$delete_student = new StudentManager();
+$delete_student->deleteStudent();	
+}
+?>
+
 <body>
 <div id="wrapper">
   <div id="title_nav">
     <div id="nav"> <a href="teacherWelcome.php">HOME</a> | <a href="index.php?logout">LOGOUT</a> | <a href="#">ABOUT US</a> | <a href="#">CONTACT</a> </div>
   </div>
   <div id="container">
-    <div id="header">
-      <form action="" method="get" style="text-align:right">
-        COURSE:
-        <select name="course" id="course">
-          <option>select one...</option>
-          <option>Massage Clinic</option>
-          <option>Course 2</option>
-        </select>
-        MODULE:
-        <select name="module" id="module">
-          <option>select one...</option>
-          <option>Module 1</option>
-          <option>Module 2</option>
-          <option>Module 3</option>
-        </select>
-        STUDENT:
-        <select name="student" id="student">
-          <option>select one...</option>
-          <option>Student Alpha</option>
-          <option>Student Beta</option>
-        </select>
-      </form>
-    </div>
-    <!--close header-->
+    <div id="header"></div><!--close header-->
+      
     <div id="content">
-      <h1>Student Management<br/>
-        Faculty: Albert Dudley</h1>
+    <form action="studentManagement.php" method="post" style="text-align:left">
+      <h1>Student Management</h1>
       <p>&nbsp; </p>
-      <p> Create new student account:
-        <input name="CreateStudent" type="button" value="Create Student" style="width:110px"/>
-      </p>
-      <p>View an existing student account:<br/>
-        Student ID:
-        <input name="studentid" type="text"  maxlength="8" />
-        <input name="ViewStudent" type="button" value="View Student" style="width:110px"/>
-      </p>
-      <p>
-      <table width="500px" border="0" cellpadding="10">
+      
+      <p>Enter an existing student account:<br/>
+        Student Number:
+        <input name="student_id" type="text"  maxlength="9" />
+        <input name="view_student" type="submit" value="View Student" style="width:110px"/>
+      
+      <table width="100%" border="0" cellpadding="10">
         <tr>
-          <td style="padding-left:0px" colspan="2"><strong>Student Information</strong></td>
+          <td style="padding-left:0px" colspan="2">
+          Student Information</td>
         </tr>
         <tr>
-          <td style="padding-left:0px">Student ID:</td>
-          <td><input name="studentid" type="text"  maxlength="8" style="width:350px"/></td>
+          <td width="100px" style="padding-left:0px">Student Number:</td>
+          <td width="100%"><input name="student_number" type="text" maxlength="300" style="width:100%" id="student_number" 
+          value="<?php if(isset($_POST['view_student'])){
+				$view_student = new StudentManager();
+				$view_student->viewStudentNum();} ?>"/></td>
         </tr>
         <tr>
-          <td style="padding-left:0px">Student Name:</td>
-          <td><input name="studentname" type="text" style="width:350px"/></td>
+          <td style="padding-left:0px">First Name:</td>
+          <td><input name="first_name" type="text" maxlength="300" style="width:100%" id="question1" 
+          value="<?php if(isset($_POST['view_student'])){
+				$view_student = new StudentManager();
+				$view_student->viewFirstName();} ?>"/></td>
         </tr>
         <tr>
-          <td style="padding-left:0px">Email:</td>
-          <td><input name="studentemail" type="text" style="width:350px"/></td>
+          <td style="padding-left:0px">Last Name:</td>
+          <td><input name="last_name" type="text" maxlength="300" style="width:100%" id="question2"
+          value="<?php if(isset($_POST['view_student'])){
+				$view_student = new StudentManager();
+				$view_student->viewLastName();} ?>"/></td>
         </tr>
         <tr>
-          <td style="padding-left:0px">Program:</td>
-          <td><input name="programcode" type="text" style="width:350px"/></td>
+          <td style="padding-left:0px" >Student Email:</td>
+          <td><input name="student_email" type="text" maxlength="300" style="width:100%" id="question1"
+          value="<?php if(isset($_POST['view_student'])){
+				$view_student = new StudentManager();
+				$view_student->viewEmail();} ?>"/></td>
         </tr>
-        <tr>
-          <td style="padding-left:0px">Course(s):</td>
-          <td><input name="coursecode" type="text" style="width:350px"/></td>
-        </tr>
+        
       </table>
       </p>
       <p>
-        <input name="ViewStudent" type="button" value="Save Student" style="width:140px"/>
-        <input name="ViewStudent" type="button" value="Delete Student" style="width:140px"/>
+        <input name="add_student" type="submit" value="Add Student" style="width:110px"/>
+        <input name="update_student" type="submit" value="Update Student" style="width:110px"/>
+        <input name="delete_student" type="submit" value="Delete Student" style="width:110px"/>
       </p>
-       <?php
-if (version_compare(PHP_VERSION, '5.3.7', '<')) {
-    exit("Sorry, Simple PHP Login does not run on a PHP version smaller than 5.3.7 !");
-} else if (version_compare(PHP_VERSION, '5.5.0', '<')) {
-    require_once("libraries/password_compatibility_library.php");
-}
-
-require_once("config/db.php");
-require_once("classes/Student.php");
-
-$login = new Login();
-if ($login->isUserLoggedIn() == true) {
-    include("views/teacherWelcome.php");  
-} else {
-    include("views/not_logged_in.php");
-}
-
-?>
+       </form>
     </div>
   </div>
   <!--close container-->

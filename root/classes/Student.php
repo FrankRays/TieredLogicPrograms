@@ -23,7 +23,7 @@ class Student
 			}
 	}//close populateModuleList
 	
-	public function populateStudentList(){
+	public function sortStudentList(){
 		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		$module_name = $this->db_connection->real_escape_string($_POST['module_dropdown']);
 		$queryS = "SELECT DISTINCT student_fname, student_lname FROM student join assessment_results on student.student_number = assessment_results.student_number join module_question on module_question.question_data = assessment_results.question_data join module on module.module_name = module_question.module_name WHERE module.module_name = '" . $module_name . "';";
@@ -37,16 +37,35 @@ class Student
 			}
 	}//close populateModuleList
 	
+	public function populateStudentList(){
+		
+		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+		$queryS = "SELECT DISTINCT student_fname, student_lname from student";
+		$resultS = $this->db_connection->query($queryS);
+		while ($rowS = $resultS->fetch_assoc()) {
+        		echo "<option value=\"{$rowS['student_lname']}\">";
+        		echo $rowS['student_lname'];
+				echo ", ";
+				echo $rowS['student_fname'];
+        		echo "</option>";
+			}
+	}
+	
 	public function displayModule(){
 		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 		$module_name = $this->db_connection->real_escape_string($_POST['module_dropdown']);
-		echo $module_name;
+		$student_name = $this->db_connection->real_escape_string($_POST['student_dropdown']);
+		$_POST['module_dropdown'] = $module_name;
+		echo "Module: " .$module_name. "<br/>";
+		echo "Student: " .$student_name;
 	}
 	
 	public function displayStudent(){
 		$this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+		$module_name = $this->db_connection->real_escape_string($_POST['module_dropdown']);
 		$student_name = $this->db_connection->real_escape_string($_POST['student_dropdown']);
-		echo $student_name;
+		echo "Module: " .$module_name. "<br/>";
+		echo "Student: " .$student_name;
 	}
 
 }//close Student class
