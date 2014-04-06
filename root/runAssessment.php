@@ -5,6 +5,40 @@
 <title>Run Assessment</title>
 <link href="css/projectsite_master.css" rel="stylesheet" type="text/css" />
 </head>
+<?php 
+require_once("classes/RunAssess.php");
+include("classes/Student.php");
+?>
+<script type="text/javascript" src="jquery-1.3.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("select#student").attr("disabled","disabled");
+            $("select#module").change(function(){
+            $("select#student").attr("disabled","disabled");
+            $("select#student").html("<option>wait...</option>");
+            var id = $("select#module option:selected").attr('value');
+            $.post("select_student.php", {id:id}, function(data){
+                $("select#student").removeAttr("disabled");
+                $("select#student").html(data);
+            });
+        });
+        $("form#select_form").submit(function(){
+            var mod = $("select#module option:selected").attr('value');
+            var stu = $("select#student option:selected").attr('value');
+            if(mod>0 && stu>0)
+            {
+                var result = $("select#student option:selected").html();
+                $("#result").html('your choice: '+result);
+            }
+            else
+            {
+                $("#result").html("Module: " + mod + "<br />" + " Student: " + stu);
+            }
+            return false;
+        });
+		
+    });
+    </script>
 
 <body>
 <div id="wrapper">
@@ -12,87 +46,58 @@
     <div id="nav"> <a href="teacherWelcome.php">HOME</a> | <a href="index.php?logout">LOGOUT</a> | <a href="#">ABOUT US</a> | <a href="#">CONTACT</a> </div>
   </div>
   <div id="container">
-    <div id="header">
-      <form action="" method="get" style="text-align:right">
-        COURSE:
-        <select name="course" id="course">
-          <option>select one...</option>
-          <option>Massage Clinic</option>
-          <option>Course 2</option>
+    <div id="header"></div>
+    
+    <form action="runAssessment.php" method="post" id="select_form"  >
+&nbsp;&nbsp;&nbsp;MODULE: 
+	<select id="module" style="width:120px;">
+            <?php echo $opt->ShowModule(); ?>
         </select>
-        MODULE:
-        <select name="module" id="module">
-          <option>select one...</option>
-          <option>Module 1</option>
-          <option>Module 2</option>
-          <option>Module 3</option>
+STUDENT:
+	<select id="student">
+             <option value="0">choose student...</option>
         </select>
-        STUDENT:
-        <select name="student" id="student">
-          <option>select one...</option>
-          <option>Student Alpha</option>
-          <option>Student Beta</option>
-        </select>
-      </form>
-    </div>
+        <input type="submit" name="confirm_button" value="Confirm Selection" />
+        
+    
     <!--close header-->
     <div id="content">
-      <h1>Run an Assessment<br/>
-        Faculty: Albert Dudley </h1>
-      <p>Current student: Student Alpha<br/>
-        Course: TERM III MASSAGE CLINIC EVALUATION MODULE(1): SAFETY<br />
-        Module: Demonstrate Draping, Pillowing &amp; Positioning(3.1f,g) <br />
-      </p>
-      <p>1. Demonstrates standard hygiene practices (ie: washes hands, etc.)<br />
-        <br />
-        <input name="Next Module" type="button" value="Inadequate" style="width:90px"/>
-        <input name="Next Module" type="button" value="Poor" style="width:90px"/>
-        <input name="Next Module" type="button" value="Satisfactory" style="width:90px"/>
-        <input name="Next Module" type="button" value="Good" style="width:90px"/>
-        <input name="Next Module" type="button" value="Excellent" style="width:90px"/>
-      </p>
-      <br />
-      <p>2. Maintain grooming, dress and hygiene appropriate to the practice setting (ie: uniform, shoes, nametag, etc.)<br />
-        <br />
-        <input name="Next Module" type="button" value="Inadequate" style="width:90px"/>
-        <input name="Next Module" type="button" value="Poor" style="width:90px"/>
-        <input name="Next Module" type="button" value="Satisfactory" style="width:90px"/>
-        <input name="Next Module" type="button" value="Good" style="width:90px"/>
-        <input name="Next Module" type="button" value="Excellent" style="width:90px"/>
-      </p>
-      <br />
-      <p>3. Apply standard precautions for infection control (ie: washing table, faceplate, clean sheets, etc.)<br />
-        <br />
-        <input name="Next Module" type="button" value="Inadequate" style="width:90px"/>
-        <input name="Next Module" type="button" value="Poor" style="width:90px"/>
-        <input name="Next Module" type="button" value="Satisfactory" style="width:90px"/>
-        <input name="Next Module" type="button" value="Good" style="width:90px"/>
-        <input name="Next Module" type="button" value="Excellent" style="width:90px"/>
-      </p>
-      <br />
-      <p><strong>Comments:<br />
-        <textarea name="comment" id="comment" cols="45" rows="5" style="width:750px"></textarea>
-        </strong>
-        <input name="Next Module" type="button" value="Save Evaluation" />
-      </p>
-      <br />
-      <p>Please select another course or module from the drop down menu above, or use the buttons below to view more results.</p>
-      <p>
-        <input name="Next Module" type="button" value="<< Previous Module" />
-        <input name="Next Module" type="button" value="Next Module >>" />
-      </p>
-    </div>
-  </div>
-  <!--close container-->
+      <h1>Run Assessment</h1><br/>
+      <div id="result"></div>
+      
+    <label name="tests">
+    <?php
+	$connection=mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+	  $result=mysqli_prepare($connection,"SELECT question_data FROM module_question WHERE module_name='Resisted Remedial Exercises'");
+	  mysqli_stmt_execute($result);
+	  mysqli_stmt_bind_result($result,$name);
+	  while(mysqli_stmt_fetch($result)){
+	  $tests[]=array('question_data'=>$name);
+	  }
+	  mysqli_stmt_close($result);
+	  
+	  foreach($tests as $test){
+	  $options=$test['question_data'];
+	  echo "<br/><label name='tests'>".$options."</label><br/>";
+	  echo "<input type='button' name='question' value='Inadequate'/>";
+	  echo "<input type='button' name='question' value='Poor'/>";
+	  echo "<input type='button' name='question' value='Average'/>";
+	  echo "<input type='button' name='question' value='Good'/>";
+	  echo "<input type='button' name='question' value='Excellent'/><br/>";
+	  }
+	  echo "<p></p><label type'text' name'label1'>Comments:</label><br/>";
+	  echo "<textarea cols='45' rows='5'></textarea>";
+      ?>
+    </label>
+    </form>
+  </div><!--close content-->
+</div>  <!--close container-->
   
-  <div id="footer">
+<div id="footer">
     <div id="footer_nav"> <a href="teacherWelcome.php">HOME</a> | <a href="#">ABOUT US</a> | <a href="#">CONTACT</a> </div>
     <!--close footer_nav-->
     <div id="footer_text">&#169;Tiered Logic Programs/Algonquin College 2014</div>
   </div>
-  <!-- close footer--> 
-  
-</div>
-<!-- close wrapper-->
+  <!-- close footer--><!-- close wrapper-->
 </body>
 </html>
